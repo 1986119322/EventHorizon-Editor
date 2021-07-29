@@ -32,13 +32,14 @@ namespace GameDatabase
         {
             this.DatabaseTreeView = new System.Windows.Forms.TreeView();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.structDataView1 = new StructDataView();
+            this.structDataView1 = new GameDatabase.Controls.StructDataView();
             this.EditButton = new System.Windows.Forms.Button();
             this.ItemTypeText = new System.Windows.Forms.Label();
             this.ItemTypeLabel = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createModMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,7 @@ namespace GameDatabase
             this.DatabaseTreeView.Location = new System.Drawing.Point(6, 3);
             this.DatabaseTreeView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DatabaseTreeView.Name = "DatabaseTreeView";
-            this.DatabaseTreeView.Size = new System.Drawing.Size(383, 568);
+            this.DatabaseTreeView.Size = new System.Drawing.Size(383, 567);
             this.DatabaseTreeView.TabIndex = 0;
             this.DatabaseTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.DatabaseTreeView_AfterSelect);
             this.DatabaseTreeView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DatabaseTreeView_MouseDoubleClick);
@@ -68,7 +69,7 @@ namespace GameDatabase
             // splitContainer
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer.Location = new System.Drawing.Point(0, 25);
             this.splitContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -82,7 +83,7 @@ namespace GameDatabase
             this.splitContainer.Panel2.Controls.Add(this.EditButton);
             this.splitContainer.Panel2.Controls.Add(this.ItemTypeText);
             this.splitContainer.Panel2.Controls.Add(this.ItemTypeLabel);
-            this.splitContainer.Size = new System.Drawing.Size(800, 576);
+            this.splitContainer.Size = new System.Drawing.Size(800, 575);
             this.splitContainer.SplitterDistance = 393;
             this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 1;
@@ -100,7 +101,7 @@ namespace GameDatabase
             this.structDataView1.Location = new System.Drawing.Point(4, 41);
             this.structDataView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.structDataView1.Name = "structDataView1";
-            this.structDataView1.Size = new System.Drawing.Size(383, 483);
+            this.structDataView1.Size = new System.Drawing.Size(379, 482);
             this.structDataView1.TabIndex = 5;
             // 
             // EditButton
@@ -108,7 +109,7 @@ namespace GameDatabase
             this.EditButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.EditButton.Enabled = false;
             this.EditButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditButton.Location = new System.Drawing.Point(8, 534);
+            this.EditButton.Location = new System.Drawing.Point(8, 533);
             this.EditButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.EditButton.Name = "EditButton";
             this.EditButton.Size = new System.Drawing.Size(112, 35);
@@ -146,7 +147,7 @@ namespace GameDatabase
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -154,38 +155,46 @@ namespace GameDatabase
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadMenuItem,
+            this.reloadDatabaseToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsMenuItem,
             this.createModMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadMenuItem
             // 
             this.loadMenuItem.Name = "loadMenuItem";
-            this.loadMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadMenuItem.Text = "Load";
             this.loadMenuItem.Click += new System.EventHandler(this.loadMenuItem_Click);
+            // 
+            // reloadDatabaseToolStripMenuItem
+            // 
+            this.reloadDatabaseToolStripMenuItem.Name = "reloadDatabaseToolStripMenuItem";
+            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadDatabaseToolStripMenuItem.Text = "Reload Database";
+            this.reloadDatabaseToolStripMenuItem.Click += new System.EventHandler(this.reloadDatabaseToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsMenuItem
             // 
             this.saveAsMenuItem.Name = "saveAsMenuItem";
-            this.saveAsMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsMenuItem.Text = "Save As...";
             this.saveAsMenuItem.Click += new System.EventHandler(this.saveAsMenuItem_Click);
             // 
             // createModMenuItem
             // 
             this.createModMenuItem.Name = "createModMenuItem";
-            this.createModMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createModMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createModMenuItem.Text = "Create Mod...";
             this.createModMenuItem.Click += new System.EventHandler(this.createModMenuItem_Click);
             // 
@@ -237,6 +246,7 @@ namespace GameDatabase
         private Controls.StructDataView structDataView1;
         private System.Windows.Forms.ToolStripMenuItem createModMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem reloadDatabaseToolStripMenuItem;
     }
 }
 

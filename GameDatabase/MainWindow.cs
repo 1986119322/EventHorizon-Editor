@@ -30,9 +30,9 @@ namespace GameDatabase
             try
             {
                 DatabaseTreeView.Nodes.Clear();
+                _lastDatabasePath = path;
                 _database = new Database(new DatabaseStorage(path));
                 BuildFilesTree(path, DatabaseTreeView.Nodes);
-                _lastDatabasePath = path;
             }
             catch (Exception e)
             {
@@ -239,5 +239,10 @@ namespace GameDatabase
         private SerializableItem _selectedItem;
         private Database _database;
         private string _lastDatabasePath;
+
+        private void reloadDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenDatabase(_lastDatabasePath);
+        }
     }
 }
