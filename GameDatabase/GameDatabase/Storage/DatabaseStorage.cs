@@ -31,32 +31,41 @@ namespace EditorDatabase.Storage
         {
             var info = new DirectoryInfo(_path);
             var itemCount = 0;
-            foreach (var fileInfo in info.GetFiles("*", SearchOption.AllDirectories))
+            string file = string.Empty;
+            try
             {
-                var file = fileInfo.FullName;
-                var path = file.Substring(info.FullName.Length + 1);
+                foreach (var fileInfo in info.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    file = fileInfo.FullName;
+                    var path = file.Substring(info.FullName.Length + 1);
 
-                if (fileInfo.Extension.Equals(".png", StringComparison.OrdinalIgnoreCase) ||
-                    fileInfo.Extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                    fileInfo.Extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
-                {
-                    loader.LoadImage(new ImageData(file));
+                    if (fileInfo.Extension.Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                        fileInfo.Extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                        fileInfo.Extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
+                    {
+                        loader.LoadImage(new ImageData(file));
+                    }
+                    else if (fileInfo.Extension.Equals(".wav", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // TODO
+                    }
+                    else if (fileInfo.Extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var xmlData = File.ReadAllText(file);
+                        loader.LoadLocalization(Path.GetFileNameWithoutExtension(file), xmlData);
+                    }
+                    else if (fileInfo.Extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var data = File.ReadAllText(file);
+                        loader.LoadJson(path, data);
+                        itemCount++;
+                    }
                 }
-                else if (fileInfo.Extension.Equals(".wav", StringComparison.OrdinalIgnoreCase))
-                {
-                    // TODO
-                }
-                else if (fileInfo.Extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
-                {
-                    var xmlData = File.ReadAllText(file);
-                    loader.LoadLocalization(Path.GetFileNameWithoutExtension(file), xmlData);
-                }
-                else if (fileInfo.Extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
-                {
-                    var data = File.ReadAllText(file);
-                    loader.LoadJson(path, data);
-                    itemCount++;
-                }
+            }
+            catch (Exception e)
+            {
+                //throw new DatabaseException("Caught an exception while loading:\n" + e.Message + "\nFrom file:\n" + file, e);
+                throw new DatabaseException("Caught an exception while loading:\n" + e.Message + "\nFrom file:\n" + file);
             }
 
             if (itemCount == 0)

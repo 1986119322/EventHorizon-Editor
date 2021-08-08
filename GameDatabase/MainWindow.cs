@@ -34,6 +34,10 @@ namespace GameDatabase
                 _database = new Database(new DatabaseStorage(path));
                 BuildFilesTree(path, DatabaseTreeView.Nodes);
             }
+            catch (DatabaseException e)
+            {
+                MessageBox.Show(e.Message);
+            }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message + " " + e.StackTrace);
