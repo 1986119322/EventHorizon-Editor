@@ -4,7 +4,7 @@
     <StartWorkingDirectory>D:\EH\CN\DBE\EventHorizon-Editor\Database\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartWorkingDirectory>D:\Projects\GameDatabase\Database\</StartWorkingDirectory>
+    <StartWorkingDirectory>D:\EH\CN\DBE\EventHorizon-Editor\Database\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>

@@ -9,6 +9,7 @@ using EditorDatabase.Enums;
 using EditorDatabase.Model;
 using EditorDatabase.Serializable;
 using EditorDatabase.Storage;
+using GameDatabase.Properties;
 using Newtonsoft.Json;
 
 namespace GameDatabase
@@ -247,6 +248,20 @@ namespace GameDatabase
         private void reloadDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenDatabase(_lastDatabasePath);
+        }
+
+        private void changeMaxListLengthToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InputForm input = new InputForm("Intput new length.", Settings.Default.MaxListLen.ToString());
+            try
+            {
+                if (input.ShowDialog() == DialogResult.OK)
+                    Settings.Default.MaxListLen = int.Parse(input.Result);
+            }
+            catch (Exception e1)
+            {
+                MessageBox.Show(e1.Message);
+            }
         }
     }
 }

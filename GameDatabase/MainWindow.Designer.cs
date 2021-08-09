@@ -45,6 +45,8 @@ namespace GameDatabase
             this.createModMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeMaxListLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -101,7 +103,7 @@ namespace GameDatabase
             this.structDataView1.Location = new System.Drawing.Point(4, 41);
             this.structDataView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.structDataView1.Name = "structDataView1";
-            this.structDataView1.Size = new System.Drawing.Size(379, 482);
+            this.structDataView1.Size = new System.Drawing.Size(377, 482);
             this.structDataView1.TabIndex = 5;
             // 
             // EditButton
@@ -144,7 +146,8 @@ namespace GameDatabase
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 25);
@@ -166,35 +169,35 @@ namespace GameDatabase
             // loadMenuItem
             // 
             this.loadMenuItem.Name = "loadMenuItem";
-            this.loadMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadMenuItem.Size = new System.Drawing.Size(176, 22);
             this.loadMenuItem.Text = "Load";
             this.loadMenuItem.Click += new System.EventHandler(this.loadMenuItem_Click);
             // 
             // reloadDatabaseToolStripMenuItem
             // 
             this.reloadDatabaseToolStripMenuItem.Name = "reloadDatabaseToolStripMenuItem";
-            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.reloadDatabaseToolStripMenuItem.Text = "Reload Database";
             this.reloadDatabaseToolStripMenuItem.Click += new System.EventHandler(this.reloadDatabaseToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsMenuItem
             // 
             this.saveAsMenuItem.Name = "saveAsMenuItem";
-            this.saveAsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsMenuItem.Size = new System.Drawing.Size(176, 22);
             this.saveAsMenuItem.Text = "Save As...";
             this.saveAsMenuItem.Click += new System.EventHandler(this.saveAsMenuItem_Click);
             // 
             // createModMenuItem
             // 
             this.createModMenuItem.Name = "createModMenuItem";
-            this.createModMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createModMenuItem.Size = new System.Drawing.Size(176, 22);
             this.createModMenuItem.Text = "Create Mod...";
             this.createModMenuItem.Click += new System.EventHandler(this.createModMenuItem_Click);
             // 
@@ -202,6 +205,21 @@ namespace GameDatabase
             // 
             this.saveFileDialog.AddExtension = false;
             this.saveFileDialog.FileName = "mod";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeMaxListLengthToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // changeMaxListLengthToolStripMenuItem
+            // 
+            this.changeMaxListLengthToolStripMenuItem.Name = "changeMaxListLengthToolStripMenuItem";
+            this.changeMaxListLengthToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.changeMaxListLengthToolStripMenuItem.Text = "Change max list length...";
+            this.changeMaxListLengthToolStripMenuItem.Click += new System.EventHandler(this.changeMaxListLengthToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -247,6 +265,8 @@ namespace GameDatabase
         private System.Windows.Forms.ToolStripMenuItem createModMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem reloadDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeMaxListLengthToolStripMenuItem;
     }
 }
 

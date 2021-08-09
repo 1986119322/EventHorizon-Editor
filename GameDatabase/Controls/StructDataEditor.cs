@@ -308,7 +308,7 @@ namespace GameDatabase
 
         private Control CreateCollection(Array value, int column, int row)
         {
-            if (value.Length > 15)
+            if (value.Length > Properties.Settings.Default.MaxListLen)
             {
                 return CreateLabel("List is too long", column, row);
             }
