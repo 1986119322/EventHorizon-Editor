@@ -10,10 +10,10 @@ namespace EditorDatabase.Enums
 {
 	public enum Availability
 	{
-		None = 0,
-		Common = 1,
-		Rare = 2,
-		Special = 3,
-		Hidden = 4,
+		无 = 0,
+		常规 = 1,
+		稀有 = 2,
+		特殊 = 3,
+		隐藏 = 4,
 	}
 }

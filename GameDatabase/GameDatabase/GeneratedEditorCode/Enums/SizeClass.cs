@@ -10,11 +10,11 @@ namespace EditorDatabase.Enums
 {
 	public enum SizeClass
 	{
-		Undefined = -1,
-		Frigate = 0,
-		Destroyer = 1,
-		Cruiser = 2,
-		Battleship = 3,
-		Titan = 4,
+		未定义 = -1,
+		护卫舰 = 0,
+		驱逐舰 = 1,
+		巡洋舰 = 2,
+		战列舰 = 3,
+		旗舰 = 4,
 	}
 }

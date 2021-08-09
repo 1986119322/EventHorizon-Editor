@@ -10,9 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum BulletEffectType
 	{
-		None,
-		PlaySfx,
-		SpawnBullet,
-		Detonate,
+		无,
+		播放视觉效果,
+		生成弹头,
+		销毁弹头,
 	}
 }

@@ -22,34 +22,34 @@ namespace EditorDatabase.DataModel
 		public SatelliteBuild(SatelliteBuildSerializable serializable, Database database)
 		{
 			Id = new ItemId<SatelliteBuild>(serializable.Id, serializable.FileName);
-			Satellite = database.GetSatelliteId(serializable.SatelliteId);
-			if (Satellite.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Satellite cannot be null");
-			NotAvailableInGame = serializable.NotAvailableInGame;
-			DifficultyClass = serializable.DifficultyClass;
-			Components = serializable.Components?.Select(item => new InstalledComponent(item, database)).ToArray();
+			僚机 = database.GetSatelliteId(serializable.SatelliteId);
+			if (僚机.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".僚机 不能为空");
+			游戏中不启用 = serializable.NotAvailableInGame;
+			难度等级 = serializable.DifficultyClass;
+			组件列表 = serializable.Components?.Select(item => new InstalledComponent(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(SatelliteBuildSerializable serializable)
 		{
-			serializable.SatelliteId = Satellite.Value;
-			serializable.NotAvailableInGame = NotAvailableInGame;
-			serializable.DifficultyClass = DifficultyClass;
-			if (Components == null || Components.Length == 0)
+			serializable.SatelliteId = 僚机.Value;
+			serializable.NotAvailableInGame = 游戏中不启用;
+			serializable.DifficultyClass = 难度等级;
+			if (组件列表 == null || 组件列表.Length == 0)
 			    serializable.Components = null;
 			else
-			    serializable.Components = Components.Select(item => item.Serialize()).ToArray();
+			    serializable.Components = 组件列表.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<SatelliteBuild> Id;
 
-		public ItemId<Satellite> Satellite = ItemId<Satellite>.Empty;
-		public bool NotAvailableInGame;
-		public DifficultyClass DifficultyClass;
-		public InstalledComponent[] Components;
+		public ItemId<Satellite> 僚机 = ItemId<Satellite>.Empty;
+		public bool 游戏中不启用;
+		public DifficultyClass 难度等级;
+		public InstalledComponent[] 组件列表;
 
 		public static SatelliteBuild DefaultValue { get; private set; }
 	}

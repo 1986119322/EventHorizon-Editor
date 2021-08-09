@@ -97,7 +97,8 @@ namespace GameDatabase
             var rowId = 0;
             foreach (var item in fields)
             {
-                var name = item.Name;
+                //var name = item.Name;
+                var name = item.Name.Equals("Item") || item.Name.Equals("Value") ? "" : item.Name;
 
                 if (_exclusions.Contains(name))
                     continue;
@@ -109,7 +110,7 @@ namespace GameDatabase
                 if (control != null)
                     _binding.Add(control, item);
                 else
-                    CreateLabel(value?.ToString() ?? "[empty]", 1, rowId);
+                    CreateLabel(value?.ToString() ?? "[空]", 1, rowId);
 
                 rowId++;
             }
@@ -310,7 +311,7 @@ namespace GameDatabase
         {
             if (value.Length > Properties.Settings.Default.MaxListLen)
             {
-                return CreateLabel("List is too long", column, row);
+                return CreateLabel("列表过长", column, row);
             }
 
             var collection = new CollectionEditor

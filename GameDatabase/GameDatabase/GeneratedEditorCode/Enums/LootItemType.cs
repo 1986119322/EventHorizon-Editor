@@ -10,19 +10,19 @@ namespace EditorDatabase.Enums
 {
 	public enum LootItemType
 	{
-		None = 0,
-		SomeMoney = 1,
-		Fuel = 2,
-		Money = 3,
-		Stars = 4,
-		StarMap = 5,
-		RandomComponents = 10,
-		RandomItems = 20,
-		AllItems = 21,
-		ItemsWithChance = 22,
-		QuestItem = 25,
-		Ship = 30,
-		EmptyShip = 31,
-		Component = 35,
+		无 = 0,
+		一些钱 = 1,
+		燃料 = 2,
+		钱 = 3,
+		星币 = 4,
+		星图 = 5,
+		随机组件 = 10,
+		随机物品 = 20,
+		所有物品 = 21,
+		几率物品 = 22,
+		任务物品 = 25,
+		带配置飞船 = 30,
+		空船 = 31,
+		组件 = 35,
 	}
 }

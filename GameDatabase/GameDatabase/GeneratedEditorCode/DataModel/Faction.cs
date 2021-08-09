@@ -22,35 +22,35 @@ namespace EditorDatabase.DataModel
 		public Faction(FactionSerializable serializable, Database database)
 		{
 			Id = new ItemId<Faction>(serializable.Id, serializable.FileName);
-			Name = serializable.Name;
-			Color = Helpers.ColorFromString(serializable.Color);
-			HomeStarDistance = new NumericValue<int>(serializable.HomeStarDistance, 0, 1000);
-			WanderingShipsDistance = new NumericValue<int>(serializable.WanderingShipsDistance, 0, 1000);
-			Hidden = serializable.Hidden;
-			Hostile = serializable.Hostile;
+			名称 = serializable.Name;
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			要塞出现距离 = new NumericValue<int>(serializable.HomeStarDistance, 0, 1000);
+			敌对飞船出现距离 = new NumericValue<int>(serializable.WanderingShipsDistance, 0, 1000);
+			隐藏 = serializable.Hidden;
+			敌对 = serializable.Hostile;
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(FactionSerializable serializable)
 		{
-			serializable.Name = Name;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.HomeStarDistance = HomeStarDistance.Value;
-			serializable.WanderingShipsDistance = WanderingShipsDistance.Value;
-			serializable.Hidden = Hidden;
-			serializable.Hostile = Hostile;
+			serializable.Name = 名称;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.HomeStarDistance = 要塞出现距离.Value;
+			serializable.WanderingShipsDistance = 敌对飞船出现距离.Value;
+			serializable.Hidden = 隐藏;
+			serializable.Hostile = 敌对;
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Faction> Id;
 
-		public string Name;
-		public System.Drawing.Color Color;
-		public NumericValue<int> HomeStarDistance = new NumericValue<int>(0, 0, 1000);
-		public NumericValue<int> WanderingShipsDistance = new NumericValue<int>(0, 0, 1000);
-		public bool Hidden;
-		public bool Hostile;
+		public string 名称;
+		public System.Drawing.Color 颜色;
+		public NumericValue<int> 要塞出现距离 = new NumericValue<int>(0, 0, 1000);
+		public NumericValue<int> 敌对飞船出现距离 = new NumericValue<int>(0, 0, 1000);
+		public bool 隐藏;
+		public bool 敌对;
 
 		public static Faction DefaultValue { get; private set; }
 	}

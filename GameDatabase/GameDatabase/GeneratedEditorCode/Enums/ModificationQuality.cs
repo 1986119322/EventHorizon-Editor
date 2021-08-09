@@ -10,11 +10,11 @@ namespace EditorDatabase.Enums
 {
 	public enum ModificationQuality
 	{
-		N3 = 0,
-		N2 = 1,
-		N1 = 2,
-		P1 = 3,
-		P2 = 4,
-		P3 = 5,
+		灰3 = 0,
+		灰2 = 1,
+		灰1 = 2,
+		绿 = 3,
+		紫 = 4,
+		金 = 5,
 	}
 }

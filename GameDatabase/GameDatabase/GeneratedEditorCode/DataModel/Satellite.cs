@@ -22,38 +22,38 @@ namespace EditorDatabase.DataModel
 		public Satellite(SatelliteSerializable serializable, Database database)
 		{
 			Id = new ItemId<Satellite>(serializable.Id, serializable.FileName);
-			Name = serializable.Name;
-			ModelImage = serializable.ModelImage;
-			ModelScale = new NumericValue<float>(serializable.ModelScale, 0.1f, 100f);
-			SizeClass = serializable.SizeClass;
+			名称 = serializable.Name;
+			模型贴图 = serializable.ModelImage;
+			模型大小 = new NumericValue<float>(serializable.ModelScale, 0.1f, 100f);
+			可安装等级 = serializable.SizeClass;
 			Layout = new Layout(serializable.Layout);
-			Barrels = serializable.Barrels?.Select(item => new Barrel(item, database)).ToArray();
+			炮管列表 = serializable.Barrels?.Select(item => new Barrel(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(SatelliteSerializable serializable)
 		{
-			serializable.Name = Name;
-			serializable.ModelImage = ModelImage;
-			serializable.ModelScale = ModelScale.Value;
-			serializable.SizeClass = SizeClass;
+			serializable.Name = 名称;
+			serializable.ModelImage = 模型贴图;
+			serializable.ModelScale = 模型大小.Value;
+			serializable.SizeClass = 可安装等级;
 			serializable.Layout = Layout.Data;
-			if (Barrels == null || Barrels.Length == 0)
+			if (炮管列表 == null || 炮管列表.Length == 0)
 			    serializable.Barrels = null;
 			else
-			    serializable.Barrels = Barrels.Select(item => item.Serialize()).ToArray();
+			    serializable.Barrels = 炮管列表.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Satellite> Id;
 
-		public string Name;
-		public string ModelImage;
-		public NumericValue<float> ModelScale = new NumericValue<float>(0, 0.1f, 100f);
-		public SizeClass SizeClass;
+		public string 名称;
+		public string 模型贴图;
+		public NumericValue<float> 模型大小 = new NumericValue<float>(0, 0.1f, 100f);
+		public SizeClass 可安装等级;
 		public Layout Layout;
-		public Barrel[] Barrels;
+		public Barrel[] 炮管列表;
 
 		public static Satellite DefaultValue { get; private set; }
 	}

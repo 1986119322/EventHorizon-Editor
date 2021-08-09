@@ -64,12 +64,12 @@ namespace EditorDatabase.Storage
             }
             catch (Exception e)
             {
-                //throw new DatabaseException("Caught an exception while loading:\n" + e.Message + "\nFrom file:\n" + file, e);
-                throw new DatabaseException("Caught an exception while loading:\n" + e.Message + "\nFrom file:\n" + file);
+                //throw new DatabaseException("加载时发生了错误:\n" + e.Message + "\n来自资源:\n" + file, e);
+                throw new DatabaseException("加载时发生了错误:\n" + e.Message + "\n来自资源:\n" + file);
             }
 
             if (itemCount == 0)
-                throw new FileNotFoundException("No database files found in " + _path);
+                throw new FileNotFoundException("未在该路径下发现数据库文件:" + _path);
         }
 
         public void SaveJson(string name, string data)

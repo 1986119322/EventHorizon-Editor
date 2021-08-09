@@ -10,13 +10,13 @@ namespace EditorDatabase.Enums
 {
 	public enum ImpactEffectType
 	{
-		Damage,
-		Push,
-		Pull,
-		DrainEnergy,
-		SiphonHitPoints,
-		SlowDown,
-		CaptureDrones,
-		Repair,
+		伤害,
+		推,
+		拉,
+		烧能,
+		吸血,
+		减速,
+		捕获无人机,
+		修复,
 	}
 }

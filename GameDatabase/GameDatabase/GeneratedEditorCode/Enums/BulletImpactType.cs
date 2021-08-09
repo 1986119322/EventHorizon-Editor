@@ -10,8 +10,8 @@ namespace EditorDatabase.Enums
 {
 	public enum BulletImpactType
 	{
-		HitFirstTarget,
-		HitAllTargets,
-		DamageOverTime,
+		击中首个目标,
+		击中后穿透目标,
+		持续影响目标,
 	}
 }

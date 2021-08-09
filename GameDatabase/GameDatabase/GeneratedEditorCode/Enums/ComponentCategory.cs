@@ -10,12 +10,12 @@ namespace EditorDatabase.Enums
 {
 	public enum ComponentCategory
 	{
-		Undefined,
-		Weapon,
-		Defense,
-		Energy,
-		Engine,
-		Drones,
-		Special,
+		未定义,
+		武器,
+		防御,
+		能量,
+		引擎,
+		无人机,
+		特殊,
 	}
 }

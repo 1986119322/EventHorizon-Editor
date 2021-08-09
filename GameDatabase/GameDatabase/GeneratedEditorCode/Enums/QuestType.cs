@@ -10,10 +10,10 @@ namespace EditorDatabase.Enums
 {
 	public enum QuestType
 	{
-		Common = 0,
-		Singleton = 1,
-		Storyline = 2,
-		Temporary = 3,
-		Urgent = 4,
+		常规 = 0,
+		单例 = 1,
+		故事线 = 2,
+		临时 = 3,
+		紧急 = 4,
 	}
 }

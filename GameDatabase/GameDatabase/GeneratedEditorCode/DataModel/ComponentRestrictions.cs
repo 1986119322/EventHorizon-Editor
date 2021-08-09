@@ -22,10 +22,10 @@ namespace EditorDatabase.DataModel
 
 		public ComponentRestrictions(ComponentRestrictionsSerializable serializable, Database database)
 		{
-			ShipSizes = serializable.ShipSizes?.Select(item => new ValueWrapper<SizeClass> { Value = item }).ToArray();
-			NotForOrganicShips = serializable.NotForOrganicShips;
-			NotForMechanicShips = serializable.NotForMechanicShips;
-			UniqueComponentTag = serializable.UniqueComponentTag;
+			可用舰船等级 = serializable.ShipSizes?.Select(item => new ValueWrapper<SizeClass> { Value = item }).ToArray();
+			生物船不可用 = serializable.NotForOrganicShips;
+			机械船不可用 = serializable.NotForMechanicShips;
+			唯一组件标签 = serializable.UniqueComponentTag;
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -33,21 +33,21 @@ namespace EditorDatabase.DataModel
 		public ComponentRestrictionsSerializable Serialize()
 		{
 			var serializable = new ComponentRestrictionsSerializable();
-			if (ShipSizes == null || ShipSizes.Length == 0)
+			if (可用舰船等级 == null || 可用舰船等级.Length == 0)
 			    serializable.ShipSizes = null;
 			else
-			    serializable.ShipSizes = ShipSizes.Select(item => item.Value).ToArray();
-			serializable.NotForOrganicShips = NotForOrganicShips;
-			serializable.NotForMechanicShips = NotForMechanicShips;
-			serializable.UniqueComponentTag = UniqueComponentTag;
+			    serializable.ShipSizes = 可用舰船等级.Select(item => item.Value).ToArray();
+			serializable.NotForOrganicShips = 生物船不可用;
+			serializable.NotForMechanicShips = 机械船不可用;
+			serializable.UniqueComponentTag = 唯一组件标签;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public ValueWrapper<SizeClass>[] ShipSizes;
-		public bool NotForOrganicShips;
-		public bool NotForMechanicShips;
-		public string UniqueComponentTag;
+		public ValueWrapper<SizeClass>[] 可用舰船等级;
+		public bool 生物船不可用;
+		public bool 机械船不可用;
+		public string 唯一组件标签;
 
 		public static ComponentRestrictions DefaultValue { get; private set; }
 	}

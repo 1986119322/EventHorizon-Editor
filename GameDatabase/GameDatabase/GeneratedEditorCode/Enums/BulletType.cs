@@ -10,9 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum BulletType
 	{
-		Projectile,
-		Homing,
-		Static,
-		Continuous,
+		抛射物,
+		跟踪弹,
+		静止发射,
+		持续发射,
 	}
 }

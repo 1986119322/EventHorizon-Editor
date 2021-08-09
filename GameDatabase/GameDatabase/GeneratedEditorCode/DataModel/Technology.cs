@@ -15,46 +15,46 @@ using EditorDatabase.Model;
 namespace EditorDatabase.DataModel
 {
 
-	public interface ITechnologyContent
+	public interface I科技Content
 	{
 		void Load(TechnologySerializable serializable, Database database);
 		void Save(ref TechnologySerializable serializable);
 	}
 
-	public partial class Technology : IDataAdapter
+	public partial class 科技 : IDataAdapter
 	{
 		partial void OnDataDeserialized(TechnologySerializable serializable, Database database);
 		partial void OnDataSerialized(ref TechnologySerializable serializable);
 
-		private static ITechnologyContent CreateContent(TechType type)
+		private static I科技Content CreateContent(TechType type)
 		{
 			switch (type)
 			{
-				case TechType.Component:
-					return new Technology_Component();
-				case TechType.Ship:
-					return new Technology_Ship();
-				case TechType.Satellite:
-					return new Technology_Satellite();
+				case TechType.组件:
+					return new 科技_组件();
+				case TechType.飞船:
+					return new 科技_飞船();
+				case TechType.僚机:
+					return new 科技_僚机();
 				default:
-					throw new DatabaseException("Technology: Invalid content type - " + type);
+					throw new DatabaseException("科技: 无效的内容类型 - " + type);
 			}
 		}
 
-		public Technology()
+		public 科技()
 		{
-			_content = new TechnologyEmptyContent();
+			_content = new 科技EmptyContent();
 		}
 
-		public Technology(TechnologySerializable serializable, Database database)
+		public 科技(TechnologySerializable serializable, Database database)
 		{
-			Id = new ItemId<Technology>(serializable);
+			Id = new ItemId<科技>(serializable);
 
-			Type = serializable.Type;
-			Price = new NumericValue<int>(serializable.Price, 0, 10000);
-			Hidden = serializable.Hidden;
-			Special = serializable.Special;
-			Dependencies = serializable.Dependencies?.Select(id => new Wrapper<Technology> { Item = database.GetTechnologyId(id) }).ToArray();
+			类型 = serializable.Type;
+			科技需求 = new NumericValue<int>(serializable.Price, 0, 10000);
+			隐藏 = serializable.Hidden;
+			特殊 = serializable.Special;
+			前置科技 = serializable.Dependencies?.Select(id => new Wrapper<科技> { Item = database.GetTechnologyId(id) }).ToArray();
 			_content = CreateContent(serializable.Type);
 			_content.Load(serializable, database);
 
@@ -68,14 +68,14 @@ namespace EditorDatabase.DataModel
 			serializable.ItemId = 0;
 			serializable.Faction = 0;
 			_content.Save(ref serializable);
-			serializable.Type = Type;
-			serializable.Price = Price.Value;
-			serializable.Hidden = Hidden;
-			serializable.Special = Special;
-			if (Dependencies == null || Dependencies.Length == 0)
+			serializable.Type = 类型;
+			serializable.Price = 科技需求.Value;
+			serializable.Hidden = 隐藏;
+			serializable.Special = 特殊;
+			if (前置科技 == null || 前置科技.Length == 0)
 			    serializable.Dependencies = null;
 			else
-			    serializable.Dependencies = Dependencies.Select(wrapper => wrapper.Item.Value).ToArray();
+			    serializable.Dependencies = 前置科技.Select(wrapper => wrapper.Item.Value).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
@@ -88,11 +88,11 @@ namespace EditorDatabase.DataModel
 			{
 				var type = GetType();
 
-				yield return new Property(this, type.GetField("Type"), OnTypeChanged);
-				yield return new Property(this, type.GetField("Price"), DataChangedEvent);
-				yield return new Property(this, type.GetField("Hidden"), DataChangedEvent);
-				yield return new Property(this, type.GetField("Special"), DataChangedEvent);
-				yield return new Property(this, type.GetField("Dependencies"), DataChangedEvent);
+				yield return new Property(this, type.GetField("类型"), OnTypeChanged);
+				yield return new Property(this, type.GetField("科技需求"), DataChangedEvent);
+				yield return new Property(this, type.GetField("隐藏"), DataChangedEvent);
+				yield return new Property(this, type.GetField("特殊"), DataChangedEvent);
+				yield return new Property(this, type.GetField("前置科技"), DataChangedEvent);
 
 				foreach (var item in _content.GetType().GetFields().Where(f => f.IsPublic && !f.IsStatic))
 					yield return new Property(_content, item, DataChangedEvent);
@@ -101,102 +101,102 @@ namespace EditorDatabase.DataModel
 
 		private void OnTypeChanged()
 		{
-			_content = CreateContent(Type);
+			_content = CreateContent(类型);
 			DataChangedEvent?.Invoke();
 			LayoutChangedEvent?.Invoke();
 		}
 
-		public readonly ItemId<Technology> Id;
+		public readonly ItemId<科技> Id;
 
-		private ITechnologyContent _content;
-		public TechType Type;
-		public NumericValue<int> Price = new NumericValue<int>(0, 0, 10000);
-		public bool Hidden;
-		public bool Special;
-		public Wrapper<Technology>[] Dependencies;
+		private I科技Content _content;
+		public TechType 类型;
+		public NumericValue<int> 科技需求 = new NumericValue<int>(0, 0, 10000);
+		public bool 隐藏;
+		public bool 特殊;
+		public Wrapper<科技>[] 前置科技;
 
-		public static Technology DefaultValue { get; private set; }
+		public static 科技 DefaultValue { get; private set; }
 	}
 
-	public class TechnologyEmptyContent : ITechnologyContent
+	public class 科技EmptyContent : I科技Content
 	{
 		public void Load(TechnologySerializable serializable, Database database) {}
 		public void Save(ref TechnologySerializable serializable) {}
 	}
 
-	public partial class Technology_Component : ITechnologyContent
+	public partial class 科技_组件 : I科技Content
 	{
 		partial void OnDataDeserialized(TechnologySerializable serializable, Database database);
 		partial void OnDataSerialized(ref TechnologySerializable serializable);
 
 		public void Load(TechnologySerializable serializable, Database database)
 		{
-			Component = database.GetComponentId(serializable.ItemId);
-			if (Component.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Component cannot be null");
-			Faction = database.GetFactionId(serializable.Faction);
+			组件 = database.GetComponentId(serializable.ItemId);
+			if (组件.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".组件 不能为空");
+			势力 = database.GetFactionId(serializable.Faction);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref TechnologySerializable serializable)
 		{
-			serializable.ItemId = Component.Value;
-			serializable.Faction = Faction.Value;
+			serializable.ItemId = 组件.Value;
+			serializable.Faction = 势力.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Component> Component = ItemId<Component>.Empty;
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
+		public ItemId<Component> 组件 = ItemId<Component>.Empty;
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
 	}
 
-	public partial class Technology_Ship : ITechnologyContent
+	public partial class 科技_飞船 : I科技Content
 	{
 		partial void OnDataDeserialized(TechnologySerializable serializable, Database database);
 		partial void OnDataSerialized(ref TechnologySerializable serializable);
 
 		public void Load(TechnologySerializable serializable, Database database)
 		{
-			Ship = database.GetShipId(serializable.ItemId);
-			if (Ship.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Ship cannot be null");
+			飞船 = database.GetShipId(serializable.ItemId);
+			if (飞船.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".飞船 不能为空");
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref TechnologySerializable serializable)
 		{
-			serializable.ItemId = Ship.Value;
+			serializable.ItemId = 飞船.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Ship> Ship = ItemId<Ship>.Empty;
+		public ItemId<Ship> 飞船 = ItemId<Ship>.Empty;
 	}
 
-	public partial class Technology_Satellite : ITechnologyContent
+	public partial class 科技_僚机 : I科技Content
 	{
 		partial void OnDataDeserialized(TechnologySerializable serializable, Database database);
 		partial void OnDataSerialized(ref TechnologySerializable serializable);
 
 		public void Load(TechnologySerializable serializable, Database database)
 		{
-			Satellite = database.GetSatelliteId(serializable.ItemId);
-			if (Satellite.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Satellite cannot be null");
-			Faction = database.GetFactionId(serializable.Faction);
+			僚机 = database.GetSatelliteId(serializable.ItemId);
+			if (僚机.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".僚机 不能为空");
+			势力 = database.GetFactionId(serializable.Faction);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref TechnologySerializable serializable)
 		{
-			serializable.ItemId = Satellite.Value;
-			serializable.Faction = Faction.Value;
+			serializable.ItemId = 僚机.Value;
+			serializable.Faction = 势力.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Satellite> Satellite = ItemId<Satellite>.Empty;
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
+		public ItemId<Satellite> 僚机 = ItemId<Satellite>.Empty;
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
 	}
 
 }

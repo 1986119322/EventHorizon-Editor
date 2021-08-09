@@ -22,9 +22,9 @@ namespace EditorDatabase.DataModel
 
 		public NodeTransition(NodeTransitionSerializable serializable, Database database)
 		{
-			TargetNode = new NumericValue<int>(serializable.TargetNode, 1, 1000);
-			Requirement = new Requirement(serializable.Requirement, database);
-			Weight = new NumericValue<float>(serializable.Weight, 0f, 1000f);
+			跳转节点 = new NumericValue<int>(serializable.TargetNode, 1, 1000);
+			跳转条件 = new 条件(serializable.Requirement, database);
+			比重 = new NumericValue<float>(serializable.Weight, 0f, 1000f);
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -32,16 +32,16 @@ namespace EditorDatabase.DataModel
 		public NodeTransitionSerializable Serialize()
 		{
 			var serializable = new NodeTransitionSerializable();
-			serializable.TargetNode = TargetNode.Value;
-			serializable.Requirement = Requirement.Serialize();
-			serializable.Weight = Weight.Value;
+			serializable.TargetNode = 跳转节点.Value;
+			serializable.Requirement = 跳转条件.Serialize();
+			serializable.Weight = 比重.Value;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public NumericValue<int> TargetNode = new NumericValue<int>(0, 1, 1000);
-		public Requirement Requirement = new Requirement();
-		public NumericValue<float> Weight = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public 条件 跳转条件 = new 条件();
+		public NumericValue<float> 比重 = new NumericValue<float>(0, 0f, 1000f);
 
 		public static NodeTransition DefaultValue { get; private set; }
 	}

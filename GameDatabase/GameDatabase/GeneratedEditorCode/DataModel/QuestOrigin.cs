@@ -13,21 +13,21 @@ using EditorDatabase.Model;
 
 namespace EditorDatabase.DataModel
 {
-	public partial class QuestOrigin
+	public partial class 任务起始地点
 	{
 		partial void OnDataDeserialized(QuestOriginSerializable serializable, Database database);
 		partial void OnDataSerialized(ref QuestOriginSerializable serializable);
 
-		public QuestOrigin() {}
+		public 任务起始地点() {}
 
-		public QuestOrigin(QuestOriginSerializable serializable, Database database)
+		public 任务起始地点(QuestOriginSerializable serializable, Database database)
 		{
-			Type = serializable.Type;
-			Factions = new RequiredFactions(serializable.Factions, database);
-			MinDistance = new NumericValue<int>(serializable.MinDistance, 0, 9999);
-			MaxDistance = new NumericValue<int>(serializable.MaxDistance, 0, 9999);
-			MinRelations = new NumericValue<int>(serializable.MinRelations, -100, 100);
-			MaxRelations = new NumericValue<int>(serializable.MaxRelations, -100, 100);
+			类型 = serializable.Type;
+			筛选势力 = new RequiredFactions(serializable.Factions, database);
+			最小距离 = new NumericValue<int>(serializable.MinDistance, 0, 9999);
+			最大距离 = new NumericValue<int>(serializable.MaxDistance, 0, 9999);
+			最小声望 = new NumericValue<int>(serializable.MinRelations, -100, 100);
+			最大声望 = new NumericValue<int>(serializable.MaxRelations, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -35,23 +35,23 @@ namespace EditorDatabase.DataModel
 		public QuestOriginSerializable Serialize()
 		{
 			var serializable = new QuestOriginSerializable();
-			serializable.Type = Type;
-			serializable.Factions = Factions.Serialize();
-			serializable.MinDistance = MinDistance.Value;
-			serializable.MaxDistance = MaxDistance.Value;
-			serializable.MinRelations = MinRelations.Value;
-			serializable.MaxRelations = MaxRelations.Value;
+			serializable.Type = 类型;
+			serializable.Factions = 筛选势力.Serialize();
+			serializable.MinDistance = 最小距离.Value;
+			serializable.MaxDistance = 最大距离.Value;
+			serializable.MinRelations = 最小声望.Value;
+			serializable.MaxRelations = 最大声望.Value;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public QuestOriginType Type;
-		public RequiredFactions Factions = new RequiredFactions();
-		public NumericValue<int> MinDistance = new NumericValue<int>(0, 0, 9999);
-		public NumericValue<int> MaxDistance = new NumericValue<int>(0, 0, 9999);
-		public NumericValue<int> MinRelations = new NumericValue<int>(0, -100, 100);
-		public NumericValue<int> MaxRelations = new NumericValue<int>(0, -100, 100);
+		public QuestOriginType 类型;
+		public RequiredFactions 筛选势力 = new RequiredFactions();
+		public NumericValue<int> 最小距离 = new NumericValue<int>(0, 0, 9999);
+		public NumericValue<int> 最大距离 = new NumericValue<int>(0, 0, 9999);
+		public NumericValue<int> 最小声望 = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 最大声望 = new NumericValue<int>(0, -100, 100);
 
-		public static QuestOrigin DefaultValue { get; private set; }
+		public static 任务起始地点 DefaultValue { get; private set; }
 	}
 }

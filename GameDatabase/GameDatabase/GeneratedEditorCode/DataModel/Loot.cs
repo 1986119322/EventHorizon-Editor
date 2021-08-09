@@ -22,20 +22,20 @@ namespace EditorDatabase.DataModel
 		public LootModel(LootSerializable serializable, Database database)
 		{
 			Id = new ItemId<LootModel>(serializable.Id, serializable.FileName);
-			Loot = new LootContent(serializable.Loot, database);
+			物品列表 = new 物品列表(serializable.Loot, database);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(LootSerializable serializable)
 		{
-			serializable.Loot = Loot.Serialize();
+			serializable.Loot = 物品列表.Serialize();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<LootModel> Id;
 
-		public LootContent Loot = new LootContent();
+		public 物品列表 物品列表 = new 物品列表();
 
 		public static LootModel DefaultValue { get; private set; }
 	}

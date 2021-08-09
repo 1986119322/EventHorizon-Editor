@@ -10,11 +10,11 @@ namespace EditorDatabase.Enums
 {
 	public enum WeaponClass
 	{
-		Common,
-		Manageable,
-		Continuous,
-		MashineGun,
-		MultiShot,
-		RequiredCharging,
+		常规,
+		可控制的,
+		持续,
+		机关炮,
+		多重炮,
+		需要充能,
 	}
 }

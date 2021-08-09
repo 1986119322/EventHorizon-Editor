@@ -21,24 +21,24 @@ namespace EditorDatabase.DataModel
 
 		public GalaxySettings(GalaxySettingsSerializable serializable, Database database)
 		{
-			AbandonedStarbaseFaction = database.GetFactionId(serializable.AbandonedStarbaseFaction);
-			StartingShipBuilds = serializable.StartingShipBuilds?.Select(id => new Wrapper<ShipBuild> { Item = database.GetShipBuildId(id) }).ToArray();
+			废弃太空站所属势力 = database.GetFactionId(serializable.AbandonedStarbaseFaction);
+			开局飞船配置 = serializable.StartingShipBuilds?.Select(id => new Wrapper<ShipBuild> { Item = database.GetShipBuildId(id) }).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(GalaxySettingsSerializable serializable)
 		{
-			serializable.AbandonedStarbaseFaction = AbandonedStarbaseFaction.Value;
-			if (StartingShipBuilds == null || StartingShipBuilds.Length == 0)
+			serializable.AbandonedStarbaseFaction = 废弃太空站所属势力.Value;
+			if (开局飞船配置 == null || 开局飞船配置.Length == 0)
 			    serializable.StartingShipBuilds = null;
 			else
-			    serializable.StartingShipBuilds = StartingShipBuilds.Select(wrapper => wrapper.Item.Value).ToArray();
+			    serializable.StartingShipBuilds = 开局飞船配置.Select(wrapper => wrapper.Item.Value).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Faction> AbandonedStarbaseFaction = ItemId<Faction>.Empty;
-		public Wrapper<ShipBuild>[] StartingShipBuilds;
+		public ItemId<Faction> 废弃太空站所属势力 = ItemId<Faction>.Empty;
+		public Wrapper<ShipBuild>[] 开局飞船配置;
 
 		public static GalaxySettings DefaultValue { get; private set; }
 	}

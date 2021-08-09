@@ -10,7 +10,7 @@ namespace EditorDatabase.Enums
 {
 	public enum ComponentStatsType
 	{
-		PerComponent = 0,
-		PerOneCell = 1,
+		组件整体 = 0,
+		每一占格 = 1,
 	}
 }

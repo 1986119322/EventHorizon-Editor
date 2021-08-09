@@ -10,13 +10,13 @@ namespace EditorDatabase.Enums
 {
 	public enum BulletTriggerCondition
 	{
-		Undefined,
-		Created,
-		Destroyed,
-		Hit,
-		Disarmed,
-		Expired,
-		Detonated,
-		OutOfAmmo,
+		未定义,
+		创建,
+		摧毁,
+		击中,
+		被消除,
+		超时,
+		销毁,
+		弹头达到最大嵌套,
 	}
 }

@@ -56,7 +56,7 @@
             this.horizontalSymmetryToolStripMenuItem.Name = "horizontalSymmetryToolStripMenuItem";
             this.horizontalSymmetryToolStripMenuItem.ShowShortcutKeys = false;
             this.horizontalSymmetryToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.horizontalSymmetryToolStripMenuItem.Text = "Horizontal symmetry";
+            this.horizontalSymmetryToolStripMenuItem.Text = "上下对称模式";
             this.horizontalSymmetryToolStripMenuItem.Click += new System.EventHandler(this.horizontalSymmetryToolStripMenuItem_Click);
             // 
             // verticalSymmetryToolStripMenuItem
@@ -65,7 +65,7 @@
             this.verticalSymmetryToolStripMenuItem.Name = "verticalSymmetryToolStripMenuItem";
             this.verticalSymmetryToolStripMenuItem.ShowShortcutKeys = false;
             this.verticalSymmetryToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.verticalSymmetryToolStripMenuItem.Text = "Vertical symmetry";
+            this.verticalSymmetryToolStripMenuItem.Text = "左右对称模式";
             this.verticalSymmetryToolStripMenuItem.Click += new System.EventHandler(this.verticalSymmetryToolStripMenuItem_Click);
             // 
             // showGridToolStripMenuItem
@@ -76,7 +76,7 @@
             this.showGridToolStripMenuItem.Name = "showGridToolStripMenuItem";
             this.showGridToolStripMenuItem.ShowShortcutKeys = false;
             this.showGridToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.showGridToolStripMenuItem.Text = "Show grid";
+            this.showGridToolStripMenuItem.Text = "显示网格线";
             this.showGridToolStripMenuItem.Click += new System.EventHandler(this.showGridToolStripMenuItem_Click);
             // 
             // showLayoutToolStripMenuItem
@@ -87,7 +87,7 @@
             this.showLayoutToolStripMenuItem.Name = "showLayoutToolStripMenuItem";
             this.showLayoutToolStripMenuItem.ShowShortcutKeys = false;
             this.showLayoutToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.showLayoutToolStripMenuItem.Text = "Show layout";
+            this.showLayoutToolStripMenuItem.Text = "显示格子";
             this.showLayoutToolStripMenuItem.Click += new System.EventHandler(this.showLayoutToolStripMenuItem_Click);
             // 
             // showBarrelsToolStripMenuItem
@@ -98,7 +98,7 @@
             this.showBarrelsToolStripMenuItem.Name = "showBarrelsToolStripMenuItem";
             this.showBarrelsToolStripMenuItem.ShowShortcutKeys = false;
             this.showBarrelsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.showBarrelsToolStripMenuItem.Text = "Show barrels";
+            this.showBarrelsToolStripMenuItem.Text = "显示炮管";
             this.showBarrelsToolStripMenuItem.Click += new System.EventHandler(this.showBarrelsToolStripMenuItem_Click);
             // 
             // LayoutEditor

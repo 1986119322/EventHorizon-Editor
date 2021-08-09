@@ -22,8 +22,8 @@ namespace EditorDatabase.DataModel
 
 		public LootItem(LootItemSerializable serializable, Database database)
 		{
-			Weight = new NumericValue<float>(serializable.Weight, -3.402823E+38f, 3.402823E+38f);
-			Loot = new LootContent(serializable.Loot, database);
+			比重 = new NumericValue<float>(serializable.Weight, -3.402823E+38f, 3.402823E+38f);
+			物品列表 = new 物品列表(serializable.Loot, database);
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -31,14 +31,14 @@ namespace EditorDatabase.DataModel
 		public LootItemSerializable Serialize()
 		{
 			var serializable = new LootItemSerializable();
-			serializable.Weight = Weight.Value;
-			serializable.Loot = Loot.Serialize();
+			serializable.Weight = 比重.Value;
+			serializable.Loot = 物品列表.Serialize();
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public NumericValue<float> Weight = new NumericValue<float>(0, -3.402823E+38f, 3.402823E+38f);
-		public LootContent Loot = new LootContent();
+		public NumericValue<float> 比重 = new NumericValue<float>(0, -3.402823E+38f, 3.402823E+38f);
+		public 物品列表 物品列表 = new 物品列表();
 
 		public static LootItem DefaultValue { get; private set; }
 	}

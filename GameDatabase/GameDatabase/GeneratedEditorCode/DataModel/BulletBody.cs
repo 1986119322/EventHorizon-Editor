@@ -22,18 +22,18 @@ namespace EditorDatabase.DataModel
 
 		public BulletBody(BulletBodySerializable serializable, Database database)
 		{
-			Type = serializable.Type;
-			Size = new NumericValue<float>(serializable.Size, 0f, 1000f);
-			Velocity = new NumericValue<float>(serializable.Velocity, 0f, 1000f);
-			Range = new NumericValue<float>(serializable.Range, 0f, 1E+09f);
-			Lifetime = new NumericValue<float>(serializable.Lifetime, 0f, 1E+09f);
-			Weight = new NumericValue<float>(serializable.Weight, 0f, 1E+09f);
-			HitPoints = new NumericValue<int>(serializable.HitPoints, 0, 999999999);
-			Color = Helpers.ColorFromString(serializable.Color);
-			BulletPrefab = database.GetBulletPrefabId(serializable.BulletPrefab);
-			EnergyCost = new NumericValue<float>(serializable.EnergyCost, 0f, 1E+09f);
-			CanBeDisarmed = serializable.CanBeDisarmed;
-			FriendlyFire = serializable.FriendlyFire;
+			类型 = serializable.Type;
+			大小 = new NumericValue<float>(serializable.Size, 0f, 1000f);
+			初速 = new NumericValue<float>(serializable.Velocity, 0f, 1000f);
+			射程 = new NumericValue<float>(serializable.Range, 0f, 1E+09f);
+			持续时间 = new NumericValue<float>(serializable.Lifetime, 0f, 1E+09f);
+			重量 = new NumericValue<float>(serializable.Weight, 0f, 1E+09f);
+			生命值 = new NumericValue<int>(serializable.HitPoints, 0, 999999999);
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			子弹模板 = database.GetBulletPrefabId(serializable.BulletPrefab);
+			能耗 = new NumericValue<float>(serializable.EnergyCost, 0f, 1E+09f);
+			可被点防攻击 = serializable.CanBeDisarmed;
+			可击中友好目标 = serializable.FriendlyFire;
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -41,34 +41,34 @@ namespace EditorDatabase.DataModel
 		public BulletBodySerializable Serialize()
 		{
 			var serializable = new BulletBodySerializable();
-			serializable.Type = Type;
-			serializable.Size = Size.Value;
-			serializable.Velocity = Velocity.Value;
-			serializable.Range = Range.Value;
-			serializable.Lifetime = Lifetime.Value;
-			serializable.Weight = Weight.Value;
-			serializable.HitPoints = HitPoints.Value;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.BulletPrefab = BulletPrefab.Value;
-			serializable.EnergyCost = EnergyCost.Value;
-			serializable.CanBeDisarmed = CanBeDisarmed;
-			serializable.FriendlyFire = FriendlyFire;
+			serializable.Type = 类型;
+			serializable.Size = 大小.Value;
+			serializable.Velocity = 初速.Value;
+			serializable.Range = 射程.Value;
+			serializable.Lifetime = 持续时间.Value;
+			serializable.Weight = 重量.Value;
+			serializable.HitPoints = 生命值.Value;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.BulletPrefab = 子弹模板.Value;
+			serializable.EnergyCost = 能耗.Value;
+			serializable.CanBeDisarmed = 可被点防攻击;
+			serializable.FriendlyFire = 可击中友好目标;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public BulletType Type;
-		public NumericValue<float> Size = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Velocity = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Range = new NumericValue<float>(0, 0f, 1E+09f);
-		public NumericValue<float> Lifetime = new NumericValue<float>(0, 0f, 1E+09f);
-		public NumericValue<float> Weight = new NumericValue<float>(0, 0f, 1E+09f);
-		public NumericValue<int> HitPoints = new NumericValue<int>(0, 0, 999999999);
-		public System.Drawing.Color Color;
-		public ItemId<BulletPrefab> BulletPrefab = ItemId<BulletPrefab>.Empty;
-		public NumericValue<float> EnergyCost = new NumericValue<float>(0, 0f, 1E+09f);
-		public bool CanBeDisarmed;
-		public bool FriendlyFire;
+		public BulletType 类型;
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 初速 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 射程 = new NumericValue<float>(0, 0f, 1E+09f);
+		public NumericValue<float> 持续时间 = new NumericValue<float>(0, 0f, 1E+09f);
+		public NumericValue<float> 重量 = new NumericValue<float>(0, 0f, 1E+09f);
+		public NumericValue<int> 生命值 = new NumericValue<int>(0, 0, 999999999);
+		public System.Drawing.Color 颜色;
+		public ItemId<BulletPrefab> 子弹模板 = ItemId<BulletPrefab>.Empty;
+		public NumericValue<float> 能耗 = new NumericValue<float>(0, 0f, 1E+09f);
+		public bool 可被点防攻击;
+		public bool 可击中友好目标;
 
 		public static BulletBody DefaultValue { get; private set; }
 	}

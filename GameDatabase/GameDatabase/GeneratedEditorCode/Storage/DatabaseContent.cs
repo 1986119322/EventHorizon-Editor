@@ -85,199 +85,199 @@ namespace EditorDatabase.Storage
             var item = _serializer.FromJson<SerializableItem>(content);
             var type = item.ItemType;
 
-            if (type == ItemType.AmmunitionObsolete)
+            if (type == ItemType.旧弹头)
             {
-			    if (_ammunitionObsoleteMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate AmmunitionObsolete ID - " + item.Id + " (" + name + " | " + _ammunitionObsoleteMap[item.Id].FileName + ")");
+			    if (_ammunitionObsoleteMap.ContainsKey(item.Id)) throw new DatabaseException("重复的旧弹头ID - " + item.Id + " (" + name + " | " + _ammunitionObsoleteMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<AmmunitionObsoleteSerializable>(content);
                 data.FileName = name;
                 _ammunitionObsoleteMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Component)
+            else if (type == ItemType.组件)
             {
-			    if (_componentMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Component ID - " + item.Id + " (" + name + " | " + _componentMap[item.Id].FileName + ")");
+			    if (_componentMap.ContainsKey(item.Id)) throw new DatabaseException("重复的组件ID - " + item.Id + " (" + name + " | " + _componentMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<ComponentSerializable>(content);
                 data.FileName = name;
                 _componentMap.Add(data.Id, data);
             }
-            else if (type == ItemType.ComponentMod)
+            else if (type == ItemType.组件附加属性)
             {
-			    if (_componentModMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate ComponentMod ID - " + item.Id + " (" + name + " | " + _componentModMap[item.Id].FileName + ")");
+			    if (_componentModMap.ContainsKey(item.Id)) throw new DatabaseException("重复的组件附加属性ID - " + item.Id + " (" + name + " | " + _componentModMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<ComponentModSerializable>(content);
                 data.FileName = name;
                 _componentModMap.Add(data.Id, data);
             }
-            else if (type == ItemType.ComponentStats)
+            else if (type == ItemType.组件属性)
             {
-			    if (_componentStatsMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate ComponentStats ID - " + item.Id + " (" + name + " | " + _componentStatsMap[item.Id].FileName + ")");
+			    if (_componentStatsMap.ContainsKey(item.Id)) throw new DatabaseException("重复的组件属性ID - " + item.Id + " (" + name + " | " + _componentStatsMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<ComponentStatsSerializable>(content);
                 data.FileName = name;
                 _componentStatsMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Device)
+            else if (type == ItemType.设备)
             {
-			    if (_deviceMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Device ID - " + item.Id + " (" + name + " | " + _deviceMap[item.Id].FileName + ")");
+			    if (_deviceMap.ContainsKey(item.Id)) throw new DatabaseException("重复的设备ID - " + item.Id + " (" + name + " | " + _deviceMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<DeviceSerializable>(content);
                 data.FileName = name;
                 _deviceMap.Add(data.Id, data);
             }
-            else if (type == ItemType.DroneBay)
+            else if (type == ItemType.无人机坪)
             {
-			    if (_droneBayMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate DroneBay ID - " + item.Id + " (" + name + " | " + _droneBayMap[item.Id].FileName + ")");
+			    if (_droneBayMap.ContainsKey(item.Id)) throw new DatabaseException("重复的无人机坪ID - " + item.Id + " (" + name + " | " + _droneBayMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<DroneBaySerializable>(content);
                 data.FileName = name;
                 _droneBayMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Faction)
+            else if (type == ItemType.势力)
             {
-			    if (_factionMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Faction ID - " + item.Id + " (" + name + " | " + _factionMap[item.Id].FileName + ")");
+			    if (_factionMap.ContainsKey(item.Id)) throw new DatabaseException("重复的势力ID - " + item.Id + " (" + name + " | " + _factionMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<FactionSerializable>(content);
                 data.FileName = name;
                 _factionMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Satellite)
+            else if (type == ItemType.僚机)
             {
-			    if (_satelliteMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Satellite ID - " + item.Id + " (" + name + " | " + _satelliteMap[item.Id].FileName + ")");
+			    if (_satelliteMap.ContainsKey(item.Id)) throw new DatabaseException("重复的僚机ID - " + item.Id + " (" + name + " | " + _satelliteMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<SatelliteSerializable>(content);
                 data.FileName = name;
                 _satelliteMap.Add(data.Id, data);
             }
-            else if (type == ItemType.SatelliteBuild)
+            else if (type == ItemType.僚机配置)
             {
-			    if (_satelliteBuildMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate SatelliteBuild ID - " + item.Id + " (" + name + " | " + _satelliteBuildMap[item.Id].FileName + ")");
+			    if (_satelliteBuildMap.ContainsKey(item.Id)) throw new DatabaseException("重复的僚机配置ID - " + item.Id + " (" + name + " | " + _satelliteBuildMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<SatelliteBuildSerializable>(content);
                 data.FileName = name;
                 _satelliteBuildMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Ship)
+            else if (type == ItemType.飞船)
             {
-			    if (_shipMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Ship ID - " + item.Id + " (" + name + " | " + _shipMap[item.Id].FileName + ")");
+			    if (_shipMap.ContainsKey(item.Id)) throw new DatabaseException("重复的飞船ID - " + item.Id + " (" + name + " | " + _shipMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<ShipSerializable>(content);
                 data.FileName = name;
                 _shipMap.Add(data.Id, data);
             }
-            else if (type == ItemType.ShipBuild)
+            else if (type == ItemType.飞船配置)
             {
-			    if (_shipBuildMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate ShipBuild ID - " + item.Id + " (" + name + " | " + _shipBuildMap[item.Id].FileName + ")");
+			    if (_shipBuildMap.ContainsKey(item.Id)) throw new DatabaseException("重复的飞船配置ID - " + item.Id + " (" + name + " | " + _shipBuildMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<ShipBuildSerializable>(content);
                 data.FileName = name;
                 _shipBuildMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Skill)
+            else if (type == ItemType.技能)
             {
-			    if (_skillMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Skill ID - " + item.Id + " (" + name + " | " + _skillMap[item.Id].FileName + ")");
+			    if (_skillMap.ContainsKey(item.Id)) throw new DatabaseException("重复的技能ID - " + item.Id + " (" + name + " | " + _skillMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<SkillSerializable>(content);
                 data.FileName = name;
                 _skillMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Technology)
+            else if (type == ItemType.科技)
             {
-			    if (_technologyMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Technology ID - " + item.Id + " (" + name + " | " + _technologyMap[item.Id].FileName + ")");
+			    if (_technologyMap.ContainsKey(item.Id)) throw new DatabaseException("重复的科技ID - " + item.Id + " (" + name + " | " + _technologyMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<TechnologySerializable>(content);
                 data.FileName = name;
                 _technologyMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Character)
+            else if (type == ItemType.角色)
             {
-			    if (_characterMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Character ID - " + item.Id + " (" + name + " | " + _characterMap[item.Id].FileName + ")");
+			    if (_characterMap.ContainsKey(item.Id)) throw new DatabaseException("重复的角色ID - " + item.Id + " (" + name + " | " + _characterMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<CharacterSerializable>(content);
                 data.FileName = name;
                 _characterMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Fleet)
+            else if (type == ItemType.舰队)
             {
-			    if (_fleetMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Fleet ID - " + item.Id + " (" + name + " | " + _fleetMap[item.Id].FileName + ")");
+			    if (_fleetMap.ContainsKey(item.Id)) throw new DatabaseException("重复的舰队ID - " + item.Id + " (" + name + " | " + _fleetMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<FleetSerializable>(content);
                 data.FileName = name;
                 _fleetMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Loot)
+            else if (type == ItemType.物品列表)
             {
-			    if (_lootMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Loot ID - " + item.Id + " (" + name + " | " + _lootMap[item.Id].FileName + ")");
+			    if (_lootMap.ContainsKey(item.Id)) throw new DatabaseException("重复的物品列表ID - " + item.Id + " (" + name + " | " + _lootMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<LootSerializable>(content);
                 data.FileName = name;
                 _lootMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Quest)
+            else if (type == ItemType.任务)
             {
-			    if (_questMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Quest ID - " + item.Id + " (" + name + " | " + _questMap[item.Id].FileName + ")");
+			    if (_questMap.ContainsKey(item.Id)) throw new DatabaseException("重复的任务ID - " + item.Id + " (" + name + " | " + _questMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<QuestSerializable>(content);
                 data.FileName = name;
                 _questMap.Add(data.Id, data);
             }
-            else if (type == ItemType.QuestItem)
+            else if (type == ItemType.任务物品)
             {
-			    if (_questItemMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate QuestItem ID - " + item.Id + " (" + name + " | " + _questItemMap[item.Id].FileName + ")");
+			    if (_questItemMap.ContainsKey(item.Id)) throw new DatabaseException("重复的任务物品ID - " + item.Id + " (" + name + " | " + _questItemMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<QuestItemSerializable>(content);
                 data.FileName = name;
                 _questItemMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Ammunition)
+            else if (type == ItemType.弹头)
             {
-			    if (_ammunitionMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Ammunition ID - " + item.Id + " (" + name + " | " + _ammunitionMap[item.Id].FileName + ")");
+			    if (_ammunitionMap.ContainsKey(item.Id)) throw new DatabaseException("重复的弹头ID - " + item.Id + " (" + name + " | " + _ammunitionMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<AmmunitionSerializable>(content);
                 data.FileName = name;
                 _ammunitionMap.Add(data.Id, data);
             }
-            else if (type == ItemType.BulletPrefab)
+            else if (type == ItemType.子弹模板)
             {
-			    if (_bulletPrefabMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate BulletPrefab ID - " + item.Id + " (" + name + " | " + _bulletPrefabMap[item.Id].FileName + ")");
+			    if (_bulletPrefabMap.ContainsKey(item.Id)) throw new DatabaseException("重复的子弹模板ID - " + item.Id + " (" + name + " | " + _bulletPrefabMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<BulletPrefabSerializable>(content);
                 data.FileName = name;
                 _bulletPrefabMap.Add(data.Id, data);
             }
-            else if (type == ItemType.VisualEffect)
+            else if (type == ItemType.视觉效果)
             {
-			    if (_visualEffectMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate VisualEffect ID - " + item.Id + " (" + name + " | " + _visualEffectMap[item.Id].FileName + ")");
+			    if (_visualEffectMap.ContainsKey(item.Id)) throw new DatabaseException("重复的视觉效果ID - " + item.Id + " (" + name + " | " + _visualEffectMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<VisualEffectSerializable>(content);
                 data.FileName = name;
                 _visualEffectMap.Add(data.Id, data);
             }
-            else if (type == ItemType.Weapon)
+            else if (type == ItemType.武器)
             {
-			    if (_weaponMap.ContainsKey(item.Id)) throw new DatabaseException("Duplicate Weapon ID - " + item.Id + " (" + name + " | " + _weaponMap[item.Id].FileName + ")");
+			    if (_weaponMap.ContainsKey(item.Id)) throw new DatabaseException("重复的武器ID - " + item.Id + " (" + name + " | " + _weaponMap[item.Id].FileName + ")");
                 var data = _serializer.FromJson<WeaponSerializable>(content);
                 data.FileName = name;
                 _weaponMap.Add(data.Id, data);
             }
-            else if (type == ItemType.DatabaseSettings)
+            else if (type == ItemType.数据库设置)
             {
                 var data = _serializer.FromJson<DatabaseSettingsSerializable>(content);
                 data.FileName = name;
 
 				if (DatabaseSettings != null)
-                    throw new DatabaseException("Duplicate DatabaseSettings file found - " + name + " | " + DatabaseSettings.FileName);
+                    throw new DatabaseException("发现重复的数据库设置文件 - " + name + " | " + DatabaseSettings.FileName);
                 DatabaseSettings = data;
             }
-            else if (type == ItemType.ExplorationSettings)
+            else if (type == ItemType.探索设置)
             {
                 var data = _serializer.FromJson<ExplorationSettingsSerializable>(content);
                 data.FileName = name;
 
 				if (ExplorationSettings != null)
-                    throw new DatabaseException("Duplicate ExplorationSettings file found - " + name + " | " + ExplorationSettings.FileName);
+                    throw new DatabaseException("发现重复的探索设置文件 - " + name + " | " + ExplorationSettings.FileName);
                 ExplorationSettings = data;
             }
-            else if (type == ItemType.GalaxySettings)
+            else if (type == ItemType.全局设置)
             {
                 var data = _serializer.FromJson<GalaxySettingsSerializable>(content);
                 data.FileName = name;
 
 				if (GalaxySettings != null)
-                    throw new DatabaseException("Duplicate GalaxySettings file found - " + name + " | " + GalaxySettings.FileName);
+                    throw new DatabaseException("发现重复的全局设置文件 - " + name + " | " + GalaxySettings.FileName);
                 GalaxySettings = data;
             }
-            else if (type == ItemType.ShipSettings)
+            else if (type == ItemType.飞船设置)
             {
                 var data = _serializer.FromJson<ShipSettingsSerializable>(content);
                 data.FileName = name;
 
 				if (ShipSettings != null)
-                    throw new DatabaseException("Duplicate ShipSettings file found - " + name + " | " + ShipSettings.FileName);
+                    throw new DatabaseException("发现重复的飞船设置文件 - " + name + " | " + ShipSettings.FileName);
                 ShipSettings = data;
             }
             else
             {
-                throw new DatabaseException("Unknown file type - " + type + "(" + name + ")");
+                throw new DatabaseException("未知的文件类型 - " + type + "(" + name + ")");
             }
         }
 

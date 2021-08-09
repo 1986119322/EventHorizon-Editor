@@ -10,13 +10,13 @@ namespace EditorDatabase.Enums
 {
 	public enum StartCondition
 	{
-		Manual = 0,
-		Beacon = 1,
-		LocalEncounter = 2,
-		FactionMission = 3,
-		GameStart = 4,
-		NewStarExplored = 5,
-		ArrivedAtStar = 6,
-		Daily = 7,
+		手动 = 0,
+		信标 = 1,
+		遭遇 = 2,
+		势力任务 = 3,
+		游戏开始 = 4,
+		探索新星系 = 5,
+		抵达星系 = 6,
+		每日 = 7,
 	}
 }

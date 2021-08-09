@@ -22,82 +22,82 @@ namespace EditorDatabase.DataModel
 		public Component(ComponentSerializable serializable, Database database)
 		{
 			Id = new ItemId<Component>(serializable.Id, serializable.FileName);
-			Name = serializable.Name;
-			Description = serializable.Description;
-			DisplayCategory = serializable.DisplayCategory;
-			Availability = serializable.Availability;
-			Stats = database.GetComponentStatsId(serializable.ComponentStatsId);
-			if (Stats.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Stats cannot be null");
-			Faction = database.GetFactionId(serializable.Faction);
-			Level = new NumericValue<int>(serializable.Level, 0, 1000);
-			Icon = serializable.Icon;
-			Color = Helpers.ColorFromString(serializable.Color);
-			Layout = new Layout(serializable.Layout);
-			CellType = serializable.CellType;
-			Device = database.GetDeviceId(serializable.DeviceId);
-			Weapon = database.GetWeaponId(serializable.WeaponId);
-			Ammunition = database.GetAmmunitionId(serializable.AmmunitionId);
-			AmmunitionObsolete = database.GetAmmunitionObsoleteId(serializable.AmmunitionId);
-			WeaponSlotType = serializable.WeaponSlotType;
-			DroneBay = database.GetDroneBayId(serializable.DroneBayId);
-			Drone = database.GetShipBuildId(serializable.DroneId);
-			Restrictions = new ComponentRestrictions(serializable.Restrictions, database);
-			PossibleModifications = serializable.PossibleModifications?.Select(id => new Wrapper<ComponentMod> { Item = database.GetComponentModId(id) }).ToArray();
+			名称 = serializable.Name;
+			描述 = serializable.Description;
+			显示类别 = serializable.DisplayCategory;
+			可获得性 = serializable.Availability;
+			基础属性 = database.GetComponentStatsId(serializable.ComponentStatsId);
+			if (基础属性.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".基础属性 不能为空");
+			所属势力 = database.GetFactionId(serializable.Faction);
+			等级 = new NumericValue<int>(serializable.Level, 0, 1000);
+			图标 = serializable.Icon;
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			占格布局 = new Layout(serializable.Layout);
+			占格类型 = serializable.CellType;
+			设备 = database.GetDeviceId(serializable.DeviceId);
+			武器 = database.GetWeaponId(serializable.WeaponId);
+			弹头 = database.GetAmmunitionId(serializable.AmmunitionId);
+			旧弹头 = database.GetAmmunitionObsoleteId(serializable.AmmunitionId);
+			占用红格类型 = serializable.WeaponSlotType;
+			无人机坪 = database.GetDroneBayId(serializable.DroneBayId);
+			无人机配置 = database.GetShipBuildId(serializable.DroneId);
+			安装限制 = new ComponentRestrictions(serializable.Restrictions, database);
+			可用附加 = serializable.PossibleModifications?.Select(id => new Wrapper<ComponentMod> { Item = database.GetComponentModId(id) }).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ComponentSerializable serializable)
 		{
-			serializable.Name = Name;
-			serializable.Description = Description;
-			serializable.DisplayCategory = DisplayCategory;
-			serializable.Availability = Availability;
-			serializable.ComponentStatsId = Stats.Value;
-			serializable.Faction = Faction.Value;
-			serializable.Level = Level.Value;
-			serializable.Icon = Icon;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.Layout = Layout.Data;
-			serializable.CellType = CellType;
-			serializable.DeviceId = Device.Value;
-			serializable.WeaponId = Weapon.Value;
-			serializable.AmmunitionId = Ammunition.Value;
-			serializable.AmmunitionId = AmmunitionObsolete.Value;
-			serializable.WeaponSlotType = WeaponSlotType;
-			serializable.DroneBayId = DroneBay.Value;
-			serializable.DroneId = Drone.Value;
-			serializable.Restrictions = Restrictions.Serialize();
-			if (PossibleModifications == null || PossibleModifications.Length == 0)
+			serializable.Name = 名称;
+			serializable.Description = 描述;
+			serializable.DisplayCategory = 显示类别;
+			serializable.Availability = 可获得性;
+			serializable.ComponentStatsId = 基础属性.Value;
+			serializable.Faction = 所属势力.Value;
+			serializable.Level = 等级.Value;
+			serializable.Icon = 图标;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.Layout = 占格布局.Data;
+			serializable.CellType = 占格类型;
+			serializable.DeviceId = 设备.Value;
+			serializable.WeaponId = 武器.Value;
+			serializable.AmmunitionId = 弹头.Value;
+			serializable.AmmunitionId = 旧弹头.Value;
+			serializable.WeaponSlotType = 占用红格类型;
+			serializable.DroneBayId = 无人机坪.Value;
+			serializable.DroneId = 无人机配置.Value;
+			serializable.Restrictions = 安装限制.Serialize();
+			if (可用附加 == null || 可用附加.Length == 0)
 			    serializable.PossibleModifications = null;
 			else
-			    serializable.PossibleModifications = PossibleModifications.Select(wrapper => wrapper.Item.Value).ToArray();
+			    serializable.PossibleModifications = 可用附加.Select(wrapper => wrapper.Item.Value).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Component> Id;
 
-		public string Name;
-		public string Description;
-		public ComponentCategory DisplayCategory;
-		public Availability Availability;
-		public ItemId<ComponentStats> Stats = ItemId<ComponentStats>.Empty;
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
-		public NumericValue<int> Level = new NumericValue<int>(0, 0, 1000);
-		public string Icon;
-		public System.Drawing.Color Color;
-		public Layout Layout;
-		public string CellType;
-		public ItemId<Device> Device = ItemId<Device>.Empty;
-		public ItemId<Weapon> Weapon = ItemId<Weapon>.Empty;
-		public ItemId<Ammunition> Ammunition = ItemId<Ammunition>.Empty;
-		public ItemId<AmmunitionObsolete> AmmunitionObsolete = ItemId<AmmunitionObsolete>.Empty;
-		public string WeaponSlotType;
-		public ItemId<DroneBay> DroneBay = ItemId<DroneBay>.Empty;
-		public ItemId<ShipBuild> Drone = ItemId<ShipBuild>.Empty;
-		public ComponentRestrictions Restrictions = new ComponentRestrictions();
-		public Wrapper<ComponentMod>[] PossibleModifications;
+		public string 名称;
+		public string 描述;
+		public ComponentCategory 显示类别;
+		public Availability 可获得性;
+		public ItemId<ComponentStats> 基础属性 = ItemId<ComponentStats>.Empty;
+		public ItemId<Faction> 所属势力 = ItemId<Faction>.Empty;
+		public NumericValue<int> 等级 = new NumericValue<int>(0, 0, 1000);
+		public string 图标;
+		public System.Drawing.Color 颜色;
+		public Layout 占格布局;
+		public string 占格类型;
+		public ItemId<Device> 设备 = ItemId<Device>.Empty;
+		public ItemId<Weapon> 武器 = ItemId<Weapon>.Empty;
+		public ItemId<Ammunition> 弹头 = ItemId<Ammunition>.Empty;
+		public ItemId<AmmunitionObsolete> 旧弹头 = ItemId<AmmunitionObsolete>.Empty;
+		public string 占用红格类型;
+		public ItemId<DroneBay> 无人机坪 = ItemId<DroneBay>.Empty;
+		public ItemId<ShipBuild> 无人机配置 = ItemId<ShipBuild>.Empty;
+		public ComponentRestrictions 安装限制 = new ComponentRestrictions();
+		public Wrapper<ComponentMod>[] 可用附加;
 
 		public static Component DefaultValue { get; private set; }
 	}

@@ -70,7 +70,7 @@ namespace EditorDatabase
             if (type == typeof(Ship)) return _content.ShipList.Select(item => new ItemId<Ship>(item));
             if (type == typeof(ShipBuild)) return _content.ShipBuildList.Select(item => new ItemId<ShipBuild>(item));
             if (type == typeof(Skill)) return _content.SkillList.Select(item => new ItemId<Skill>(item));
-            if (type == typeof(Technology)) return _content.TechnologyList.Select(item => new ItemId<Technology>(item));
+            if (type == typeof(科技)) return _content.TechnologyList.Select(item => new ItemId<科技>(item));
             if (type == typeof(Character)) return _content.CharacterList.Select(item => new ItemId<Character>(item));
             if (type == typeof(Fleet)) return _content.FleetList.Select(item => new ItemId<Fleet>(item));
             if (type == typeof(LootModel)) return _content.LootList.Select(item => new ItemId<LootModel>(item));
@@ -87,32 +87,32 @@ namespace EditorDatabase
         {
             switch (type)
             {
-				case ItemType.AmmunitionObsolete: return GetAmmunitionObsolete(id);
-				case ItemType.Component: return GetComponent(id);
-				case ItemType.ComponentMod: return GetComponentMod(id);
-				case ItemType.ComponentStats: return GetComponentStats(id);
-				case ItemType.Device: return GetDevice(id);
-				case ItemType.DroneBay: return GetDroneBay(id);
-				case ItemType.Faction: return GetFaction(id);
-				case ItemType.Satellite: return GetSatellite(id);
-				case ItemType.SatelliteBuild: return GetSatelliteBuild(id);
-				case ItemType.Ship: return GetShip(id);
-				case ItemType.ShipBuild: return GetShipBuild(id);
-				case ItemType.Skill: return GetSkill(id);
-				case ItemType.Technology: return GetTechnology(id);
-				case ItemType.Character: return GetCharacter(id);
-				case ItemType.Fleet: return GetFleet(id);
-				case ItemType.Loot: return GetLoot(id);
-				case ItemType.Quest: return GetQuest(id);
-				case ItemType.QuestItem: return GetQuestItem(id);
-				case ItemType.Ammunition: return GetAmmunition(id);
-				case ItemType.BulletPrefab: return GetBulletPrefab(id);
-				case ItemType.VisualEffect: return GetVisualEffect(id);
-				case ItemType.Weapon: return GetWeapon(id);
-				case ItemType.DatabaseSettings: return DatabaseSettings;
-				case ItemType.ExplorationSettings: return ExplorationSettings;
-				case ItemType.GalaxySettings: return GalaxySettings;
-				case ItemType.ShipSettings: return ShipSettings;
+				case ItemType.旧弹头: return GetAmmunitionObsolete(id);
+				case ItemType.组件: return GetComponent(id);
+				case ItemType.组件附加属性: return GetComponentMod(id);
+				case ItemType.组件属性: return GetComponentStats(id);
+				case ItemType.设备: return GetDevice(id);
+				case ItemType.无人机坪: return GetDroneBay(id);
+				case ItemType.势力: return GetFaction(id);
+				case ItemType.僚机: return GetSatellite(id);
+				case ItemType.僚机配置: return GetSatelliteBuild(id);
+				case ItemType.飞船: return GetShip(id);
+				case ItemType.飞船配置: return GetShipBuild(id);
+				case ItemType.技能: return GetSkill(id);
+				case ItemType.科技: return GetTechnology(id);
+				case ItemType.角色: return GetCharacter(id);
+				case ItemType.舰队: return GetFleet(id);
+				case ItemType.物品列表: return GetLoot(id);
+				case ItemType.任务: return GetQuest(id);
+				case ItemType.任务物品: return GetQuestItem(id);
+				case ItemType.弹头: return GetAmmunition(id);
+				case ItemType.子弹模板: return GetBulletPrefab(id);
+				case ItemType.视觉效果: return GetVisualEffect(id);
+				case ItemType.武器: return GetWeapon(id);
+				case ItemType.数据库设置: return DatabaseSettings;
+				case ItemType.探索设置: return ExplorationSettings;
+				case ItemType.全局设置: return GalaxySettings;
+				case ItemType.飞船设置: return ShipSettings;
                 default: return null;
             }
         }
@@ -267,13 +267,13 @@ namespace EditorDatabase
             return item;
         }
 
-		public ItemId<Technology> GetTechnologyId(int id) { return new ItemId<Technology>(_content.GetTechnology(id)); }
-        public Technology GetTechnology(int id)
+		public ItemId<科技> GetTechnologyId(int id) { return new ItemId<科技>(_content.GetTechnology(id)); }
+        public 科技 GetTechnology(int id)
         {
             if (!_technologyMap.TryGetValue(id, out var item))
             {
                 var serializable = _content.GetTechnology(id);
-                item = new Technology(serializable, this);
+                item = new 科技(serializable, this);
                 _technologyMap.Add(id, item);
             }
             return item;
@@ -433,7 +433,7 @@ namespace EditorDatabase
 		private readonly Dictionary<int, Ship> _shipMap = new Dictionary<int, Ship>();
 		private readonly Dictionary<int, ShipBuild> _shipBuildMap = new Dictionary<int, ShipBuild>();
 		private readonly Dictionary<int, Skill> _skillMap = new Dictionary<int, Skill>();
-		private readonly Dictionary<int, Technology> _technologyMap = new Dictionary<int, Technology>();
+		private readonly Dictionary<int, 科技> _technologyMap = new Dictionary<int, 科技>();
 		private readonly Dictionary<int, Character> _characterMap = new Dictionary<int, Character>();
 		private readonly Dictionary<int, Fleet> _fleetMap = new Dictionary<int, Fleet>();
 		private readonly Dictionary<int, LootModel> _lootMap = new Dictionary<int, LootModel>();

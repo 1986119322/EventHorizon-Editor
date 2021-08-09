@@ -43,10 +43,10 @@ namespace GameDatabase
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createModMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeMaxListLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -103,7 +103,7 @@ namespace GameDatabase
             this.structDataView1.Location = new System.Drawing.Point(4, 41);
             this.structDataView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.structDataView1.Name = "structDataView1";
-            this.structDataView1.Size = new System.Drawing.Size(377, 482);
+            this.structDataView1.Size = new System.Drawing.Size(375, 482);
             this.structDataView1.TabIndex = 5;
             // 
             // EditButton
@@ -117,7 +117,7 @@ namespace GameDatabase
             this.EditButton.Size = new System.Drawing.Size(112, 35);
             this.EditButton.TabIndex = 4;
             this.EditButton.TabStop = false;
-            this.EditButton.Text = "Edit";
+            this.EditButton.Text = "编辑";
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
@@ -139,9 +139,9 @@ namespace GameDatabase
             this.ItemTypeLabel.Location = new System.Drawing.Point(3, 3);
             this.ItemTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ItemTypeLabel.Name = "ItemTypeLabel";
-            this.ItemTypeLabel.Size = new System.Drawing.Size(79, 20);
+            this.ItemTypeLabel.Size = new System.Drawing.Size(77, 20);
             this.ItemTypeLabel.TabIndex = 2;
-            this.ItemTypeLabel.Text = "Item type:";
+            this.ItemTypeLabel.Text = "文件类型:";
             // 
             // menuStrip1
             // 
@@ -163,63 +163,63 @@ namespace GameDatabase
             this.saveAsMenuItem,
             this.createModMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.fileToolStripMenuItem.Text = "文件";
             // 
             // loadMenuItem
             // 
             this.loadMenuItem.Name = "loadMenuItem";
-            this.loadMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.loadMenuItem.Text = "Load";
+            this.loadMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadMenuItem.Text = "加载";
             this.loadMenuItem.Click += new System.EventHandler(this.loadMenuItem_Click);
             // 
             // reloadDatabaseToolStripMenuItem
             // 
             this.reloadDatabaseToolStripMenuItem.Name = "reloadDatabaseToolStripMenuItem";
-            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.reloadDatabaseToolStripMenuItem.Text = "Reload Database";
+            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadDatabaseToolStripMenuItem.Text = "重新加载数据库";
             this.reloadDatabaseToolStripMenuItem.Click += new System.EventHandler(this.reloadDatabaseToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "保存";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsMenuItem
             // 
             this.saveAsMenuItem.Name = "saveAsMenuItem";
-            this.saveAsMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.saveAsMenuItem.Text = "Save As...";
+            this.saveAsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsMenuItem.Text = "另存为...";
             this.saveAsMenuItem.Click += new System.EventHandler(this.saveAsMenuItem_Click);
             // 
             // createModMenuItem
             // 
             this.createModMenuItem.Name = "createModMenuItem";
-            this.createModMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.createModMenuItem.Text = "Create Mod...";
+            this.createModMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createModMenuItem.Text = "打包为模组...";
             this.createModMenuItem.Click += new System.EventHandler(this.createModMenuItem_Click);
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.AddExtension = false;
-            this.saveFileDialog.FileName = "mod";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeMaxListLengthToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.settingsToolStripMenuItem.Text = "设置";
             // 
             // changeMaxListLengthToolStripMenuItem
             // 
             this.changeMaxListLengthToolStripMenuItem.Name = "changeMaxListLengthToolStripMenuItem";
-            this.changeMaxListLengthToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.changeMaxListLengthToolStripMenuItem.Text = "Change max list length...";
+            this.changeMaxListLengthToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.changeMaxListLengthToolStripMenuItem.Text = "更改列表最大显示长度...";
             this.changeMaxListLengthToolStripMenuItem.Click += new System.EventHandler(this.changeMaxListLengthToolStripMenuItem_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.AddExtension = false;
+            this.saveFileDialog.FileName = "mod";
             // 
             // MainWindow
             // 
@@ -234,7 +234,7 @@ namespace GameDatabase
             this.Location = global::GameDatabase.Properties.Settings.Default.MainPosition;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainWindow";
-            this.Text = "Game database";
+            this.Text = "Event Horizon数据库编辑器";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

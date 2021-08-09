@@ -22,35 +22,35 @@ namespace EditorDatabase.DataModel
 		public Ammunition(AmmunitionSerializable serializable, Database database)
 		{
 			Id = new ItemId<Ammunition>(serializable.Id, serializable.FileName);
-			Body = new BulletBody(serializable.Body, database);
-			Triggers = serializable.Triggers?.Select(item => new BulletTrigger(item, database)).ToArray();
-			ImpactType = serializable.ImpactType;
-			Effects = serializable.Effects?.Select(item => new ImpactEffect(item, database)).ToArray();
+			弹体 = new BulletBody(serializable.Body, database);
+			触发器 = serializable.Triggers?.Select(item => new 弹头触发器(item, database)).ToArray();
+			击中方式 = serializable.ImpactType;
+			击中效果 = serializable.Effects?.Select(item => new ImpactEffect(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(AmmunitionSerializable serializable)
 		{
-			serializable.Body = Body.Serialize();
-			if (Triggers == null || Triggers.Length == 0)
+			serializable.Body = 弹体.Serialize();
+			if (触发器 == null || 触发器.Length == 0)
 			    serializable.Triggers = null;
 			else
-			    serializable.Triggers = Triggers.Select(item => item.Serialize()).ToArray();
-			serializable.ImpactType = ImpactType;
-			if (Effects == null || Effects.Length == 0)
+			    serializable.Triggers = 触发器.Select(item => item.Serialize()).ToArray();
+			serializable.ImpactType = 击中方式;
+			if (击中效果 == null || 击中效果.Length == 0)
 			    serializable.Effects = null;
 			else
-			    serializable.Effects = Effects.Select(item => item.Serialize()).ToArray();
+			    serializable.Effects = 击中效果.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Ammunition> Id;
 
-		public BulletBody Body = new BulletBody();
-		public BulletTrigger[] Triggers;
-		public BulletImpactType ImpactType;
-		public ImpactEffect[] Effects;
+		public BulletBody 弹体 = new BulletBody();
+		public 弹头触发器[] 触发器;
+		public BulletImpactType 击中方式;
+		public ImpactEffect[] 击中效果;
 
 		public static Ammunition DefaultValue { get; private set; }
 	}

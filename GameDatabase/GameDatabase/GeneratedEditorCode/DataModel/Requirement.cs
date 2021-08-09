@@ -15,72 +15,72 @@ using EditorDatabase.Model;
 namespace EditorDatabase.DataModel
 {
 
-	public interface IRequirementContent
+	public interface I条件Content
 	{
 		void Load(RequirementSerializable serializable, Database database);
 		void Save(ref RequirementSerializable serializable);
 	}
 
-	public partial class Requirement : IDataAdapter
+	public partial class 条件 : IDataAdapter
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
-		private static IRequirementContent CreateContent(RequirementType type)
+		private static I条件Content CreateContent(RequirementType type)
 		{
 			switch (type)
 			{
-				case RequirementType.Empty:
-					return new RequirementEmptyContent();
-				case RequirementType.Any:
-					return new Requirement_Any();
-				case RequirementType.All:
-					return new Requirement_All();
-				case RequirementType.None:
-					return new Requirement_None();
-				case RequirementType.PlayerPosition:
-					return new Requirement_PlayerPosition();
-				case RequirementType.RandomStarSystem:
-					return new Requirement_RandomStarSystem();
-				case RequirementType.AggressiveOccupants:
-					return new RequirementEmptyContent();
-				case RequirementType.QuestCompleted:
-					return new Requirement_QuestCompleted();
-				case RequirementType.QuestActive:
-					return new Requirement_QuestActive();
-				case RequirementType.CharacterRelations:
-					return new Requirement_CharacterRelations();
-				case RequirementType.FactionRelations:
-					return new Requirement_FactionRelations();
-				case RequirementType.StarbaseCaptured:
-					return new RequirementEmptyContent();
-				case RequirementType.Faction:
-					return new Requirement_Faction();
-				case RequirementType.HaveQuestItem:
-					return new Requirement_HaveQuestItem();
-				case RequirementType.HaveItem:
-					return new Requirement_HaveItem();
-				case RequirementType.HaveItemById:
-					return new Requirement_HaveItemById();
-				case RequirementType.ComeToOrigin:
-					return new RequirementEmptyContent();
-				case RequirementType.TimeSinceQuestStart:
-					return new Requirement_TimeSinceQuestStart();
-				case RequirementType.TimeSinceLastCompletion:
-					return new Requirement_TimeSinceLastCompletion();
+				case RequirementType.空:
+					return new 条件EmptyContent();
+				case RequirementType.任意:
+					return new 条件_任意();
+				case RequirementType.所有:
+					return new 条件_所有();
+				case RequirementType.无一:
+					return new 条件_无一();
+				case RequirementType.玩家位置:
+					return new 条件_玩家位置();
+				case RequirementType.移动到任意星系:
+					return new 条件_移动到任意星系();
+				case RequirementType.攻击性星系敌人:
+					return new 条件EmptyContent();
+				case RequirementType.任务已完成:
+					return new 条件_任务已完成();
+				case RequirementType.任务激活中:
+					return new 条件_任务激活中();
+				case RequirementType.角色好感:
+					return new 条件_角色好感();
+				case RequirementType.星区声望:
+					return new 条件_星区声望();
+				case RequirementType.星区已占领:
+					return new 条件EmptyContent();
+				case RequirementType.势力:
+					return new 条件_势力();
+				case RequirementType.拥有任务物品:
+					return new 条件_拥有任务物品();
+				case RequirementType.拥有物品:
+					return new 条件_拥有物品();
+				case RequirementType.拥有指定物品:
+					return new 条件_拥有指定物品();
+				case RequirementType.返回任务起始点:
+					return new 条件EmptyContent();
+				case RequirementType.从任务触发开始进行计时:
+					return new 条件_从任务触发开始进行计时();
+				case RequirementType.从任务上次完成时开始计时:
+					return new 条件_从任务上次完成时开始计时();
 				default:
-					throw new DatabaseException("Requirement: Invalid content type - " + type);
+					throw new DatabaseException("条件: 无效的内容类型 - " + type);
 			}
 		}
 
-		public Requirement()
+		public 条件()
 		{
-			_content = new RequirementEmptyContent();
+			_content = new 条件EmptyContent();
 		}
 
-		public Requirement(RequirementSerializable serializable, Database database)
+		public 条件(RequirementSerializable serializable, Database database)
 		{
-			Type = serializable.Type;
+			类型 = serializable.Type;
 			_content = CreateContent(serializable.Type);
 			_content.Load(serializable, database);
 
@@ -101,11 +101,11 @@ namespace EditorDatabase.DataModel
 			serializable.MinValue = 0;
 			serializable.MaxValue = 0;
 			serializable.Character = 0;
-			serializable.Faction = 0;
+			serializable.势力 = 0;
 			serializable.Loot = new LootContentSerializable();
 			serializable.Requirements = null;
 			_content.Save(ref serializable);
-			serializable.Type = Type;
+			serializable.Type = 类型;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
@@ -119,7 +119,7 @@ namespace EditorDatabase.DataModel
 			{
 				var type = GetType();
 
-				yield return new Property(this, type.GetField("Type"), OnTypeChanged);
+				yield return new Property(this, type.GetField("类型"), OnTypeChanged);
 
 				foreach (var item in _content.GetType().GetFields().Where(f => f.IsPublic && !f.IsStatic))
 					yield return new Property(_content, item, DataChangedEvent);
@@ -128,369 +128,369 @@ namespace EditorDatabase.DataModel
 
 		private void OnTypeChanged()
 		{
-			_content = CreateContent(Type);
+			_content = CreateContent(类型);
 			DataChangedEvent?.Invoke();
 			LayoutChangedEvent?.Invoke();
 		}
 
-		private IRequirementContent _content;
-		public RequirementType Type;
+		private I条件Content _content;
+		public RequirementType 类型;
 
-		public static Requirement DefaultValue { get; private set; }
+		public static 条件 DefaultValue { get; private set; }
 	}
 
-	public class RequirementEmptyContent : IRequirementContent
+	public class 条件EmptyContent : I条件Content
 	{
 		public void Load(RequirementSerializable serializable, Database database) {}
 		public void Save(ref RequirementSerializable serializable) {}
 	}
 
-	public partial class Requirement_Any : IRequirementContent
+	public partial class 条件_任意 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Requirements = serializable.Requirements?.Select(item => new Requirement(item, database)).ToArray();
+			条件 = serializable.Requirements?.Select(item => new 条件(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			if (Requirements == null || Requirements.Length == 0)
+			if (条件 == null || 条件.Length == 0)
 			    serializable.Requirements = null;
 			else
-			    serializable.Requirements = Requirements.Select(item => item.Serialize()).ToArray();
+			    serializable.Requirements = 条件.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public Requirement[] Requirements;
+		public 条件[] 条件;
 	}
 
-	public partial class Requirement_All : IRequirementContent
+	public partial class 条件_所有 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Requirements = serializable.Requirements?.Select(item => new Requirement(item, database)).ToArray();
+			条件 = serializable.Requirements?.Select(item => new 条件(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			if (Requirements == null || Requirements.Length == 0)
+			if (条件 == null || 条件.Length == 0)
 			    serializable.Requirements = null;
 			else
-			    serializable.Requirements = Requirements.Select(item => item.Serialize()).ToArray();
+			    serializable.Requirements = 条件.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public Requirement[] Requirements;
+		public 条件[] 条件;
 	}
 
-	public partial class Requirement_None : IRequirementContent
+	public partial class 条件_无一 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Requirements = serializable.Requirements?.Select(item => new Requirement(item, database)).ToArray();
+			条件 = serializable.Requirements?.Select(item => new 条件(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			if (Requirements == null || Requirements.Length == 0)
+			if (条件 == null || 条件.Length == 0)
 			    serializable.Requirements = null;
 			else
-			    serializable.Requirements = Requirements.Select(item => item.Serialize()).ToArray();
+			    serializable.Requirements = 条件.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public Requirement[] Requirements;
+		public 条件[] 条件;
 	}
 
-	public partial class Requirement_PlayerPosition : IRequirementContent
+	public partial class 条件_玩家位置 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			MinValue = new NumericValue<int>(serializable.MinValue, 0, 10000);
-			MaxValue = new NumericValue<int>(serializable.MaxValue, 0, 10000);
+			最小距离 = new NumericValue<int>(serializable.MinValue, 0, 10000);
+			最大距离 = new NumericValue<int>(serializable.MaxValue, 0, 10000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = MinValue.Value;
-			serializable.MaxValue = MaxValue.Value;
+			serializable.MinValue = 最小距离.Value;
+			serializable.MaxValue = 最大距离.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> MinValue = new NumericValue<int>(0, 0, 10000);
-		public NumericValue<int> MaxValue = new NumericValue<int>(0, 0, 10000);
+		public NumericValue<int> 最小距离 = new NumericValue<int>(0, 0, 10000);
+		public NumericValue<int> 最大距离 = new NumericValue<int>(0, 0, 10000);
 	}
 
-	public partial class Requirement_RandomStarSystem : IRequirementContent
+	public partial class 条件_移动到任意星系 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			MinValue = new NumericValue<int>(serializable.MinValue, 0, 10000);
-			MaxValue = new NumericValue<int>(serializable.MaxValue, 0, 10000);
+			最小距离 = new NumericValue<int>(serializable.MinValue, 0, 10000);
+			最大距离 = new NumericValue<int>(serializable.MaxValue, 0, 10000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = MinValue.Value;
-			serializable.MaxValue = MaxValue.Value;
+			serializable.MinValue = 最小距离.Value;
+			serializable.MaxValue = 最大距离.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> MinValue = new NumericValue<int>(0, 0, 10000);
-		public NumericValue<int> MaxValue = new NumericValue<int>(0, 0, 10000);
+		public NumericValue<int> 最小距离 = new NumericValue<int>(0, 0, 10000);
+		public NumericValue<int> 最大距离 = new NumericValue<int>(0, 0, 10000);
 	}
 
-	public partial class Requirement_QuestCompleted : IRequirementContent
+	public partial class 条件_任务已完成 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Quest = database.GetQuestId(serializable.ItemId);
+			任务 = database.GetQuestId(serializable.ItemId);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.ItemId = Quest.Value;
+			serializable.ItemId = 任务.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<QuestModel> Quest = ItemId<QuestModel>.Empty;
+		public ItemId<QuestModel> 任务 = ItemId<QuestModel>.Empty;
 	}
 
-	public partial class Requirement_QuestActive : IRequirementContent
+	public partial class 条件_任务激活中 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Quest = database.GetQuestId(serializable.ItemId);
+			任务 = database.GetQuestId(serializable.ItemId);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.ItemId = Quest.Value;
+			serializable.ItemId = 任务.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<QuestModel> Quest = ItemId<QuestModel>.Empty;
+		public ItemId<QuestModel> 任务 = ItemId<QuestModel>.Empty;
 	}
 
-	public partial class Requirement_CharacterRelations : IRequirementContent
+	public partial class 条件_角色好感 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			MinValue = new NumericValue<int>(serializable.MinValue, -100, 100);
-			MaxValue = new NumericValue<int>(serializable.MaxValue, -100, 100);
-			Character = database.GetCharacterId(serializable.Character);
+			最小好感度 = new NumericValue<int>(serializable.MinValue, -100, 100);
+			最大好感度 = new NumericValue<int>(serializable.MaxValue, -100, 100);
+			角色 = database.GetCharacterId(serializable.Character);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = MinValue.Value;
-			serializable.MaxValue = MaxValue.Value;
-			serializable.Character = Character.Value;
+			serializable.MinValue = 最小好感度.Value;
+			serializable.MaxValue = 最大好感度.Value;
+			serializable.Character = 角色.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> MinValue = new NumericValue<int>(0, -100, 100);
-		public NumericValue<int> MaxValue = new NumericValue<int>(0, -100, 100);
-		public ItemId<Character> Character = ItemId<Character>.Empty;
+		public NumericValue<int> 最小好感度 = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 最大好感度 = new NumericValue<int>(0, -100, 100);
+		public ItemId<Character> 角色 = ItemId<Character>.Empty;
 	}
 
-	public partial class Requirement_FactionRelations : IRequirementContent
+	public partial class 条件_星区声望 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			MinValue = new NumericValue<int>(serializable.MinValue, -100, 100);
-			MaxValue = new NumericValue<int>(serializable.MaxValue, -100, 100);
+			最小好感度 = new NumericValue<int>(serializable.MinValue, -100, 100);
+			最大好感度 = new NumericValue<int>(serializable.MaxValue, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = MinValue.Value;
-			serializable.MaxValue = MaxValue.Value;
+			serializable.MinValue = 最小好感度.Value;
+			serializable.MaxValue = 最大好感度.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> MinValue = new NumericValue<int>(0, -100, 100);
-		public NumericValue<int> MaxValue = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 最小好感度 = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 最大好感度 = new NumericValue<int>(0, -100, 100);
 	}
 
-	public partial class Requirement_Faction : IRequirementContent
+	public partial class 条件_势力 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Faction = database.GetFactionId(serializable.Faction);
+			势力 = database.GetFactionId(serializable.势力);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.Faction = Faction.Value;
+			serializable.势力 = 势力.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
 	}
 
-	public partial class Requirement_HaveQuestItem : IRequirementContent
+	public partial class 条件_拥有任务物品 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			QuestItem = database.GetQuestItemId(serializable.ItemId);
-			Amount = new NumericValue<int>(serializable.MinValue, 1, 1000000);
+			任务物品 = database.GetQuestItemId(serializable.ItemId);
+			拥有数量 = new NumericValue<int>(serializable.MinValue, 1, 1000000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.ItemId = QuestItem.Value;
-			serializable.MinValue = Amount.Value;
+			serializable.ItemId = 任务物品.Value;
+			serializable.MinValue = 拥有数量.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<QuestItem> QuestItem = ItemId<QuestItem>.Empty;
-		public NumericValue<int> Amount = new NumericValue<int>(0, 1, 1000000);
+		public ItemId<QuestItem> 任务物品 = ItemId<QuestItem>.Empty;
+		public NumericValue<int> 拥有数量 = new NumericValue<int>(0, 1, 1000000);
 	}
 
-	public partial class Requirement_HaveItem : IRequirementContent
+	public partial class 条件_拥有物品 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Loot = new LootContent(serializable.Loot, database);
+			物品列表 = new 物品列表(serializable.Loot, database);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.Loot = Loot.Serialize();
+			serializable.Loot = 物品列表.Serialize();
 			OnDataSerialized(ref serializable);
 		}
 
-		public LootContent Loot = new LootContent();
+		public 物品列表 物品列表 = new 物品列表();
 	}
 
-	public partial class Requirement_HaveItemById : IRequirementContent
+	public partial class 条件_拥有指定物品 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Loot = database.GetLootId(serializable.ItemId);
+			物品列表 = database.GetLootId(serializable.ItemId);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.ItemId = Loot.Value;
+			serializable.ItemId = 物品列表.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
 	}
 
-	public partial class Requirement_TimeSinceQuestStart : IRequirementContent
+	public partial class 条件_从任务触发开始进行计时 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Minutes = new NumericValue<int>(serializable.MinValue, 0, 999999);
-			Hours = new NumericValue<int>(serializable.MaxValue, 0, 999999);
+			分钟 = new NumericValue<int>(serializable.MinValue, 0, 999999);
+			小时 = new NumericValue<int>(serializable.MaxValue, 0, 999999);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = Minutes.Value;
-			serializable.MaxValue = Hours.Value;
+			serializable.MinValue = 分钟.Value;
+			serializable.MaxValue = 小时.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Minutes = new NumericValue<int>(0, 0, 999999);
-		public NumericValue<int> Hours = new NumericValue<int>(0, 0, 999999);
+		public NumericValue<int> 分钟 = new NumericValue<int>(0, 0, 999999);
+		public NumericValue<int> 小时 = new NumericValue<int>(0, 0, 999999);
 	}
 
-	public partial class Requirement_TimeSinceLastCompletion : IRequirementContent
+	public partial class 条件_从任务上次完成时开始计时 : I条件Content
 	{
 		partial void OnDataDeserialized(RequirementSerializable serializable, Database database);
 		partial void OnDataSerialized(ref RequirementSerializable serializable);
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			Minutes = new NumericValue<int>(serializable.MinValue, 0, 999999);
-			Hours = new NumericValue<int>(serializable.MaxValue, 0, 999999);
+			分钟 = new NumericValue<int>(serializable.MinValue, 0, 999999);
+			小时 = new NumericValue<int>(serializable.MaxValue, 0, 999999);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.MinValue = Minutes.Value;
-			serializable.MaxValue = Hours.Value;
+			serializable.MinValue = 分钟.Value;
+			serializable.MaxValue = 小时.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Minutes = new NumericValue<int>(0, 0, 999999);
-		public NumericValue<int> Hours = new NumericValue<int>(0, 0, 999999);
+		public NumericValue<int> 分钟 = new NumericValue<int>(0, 0, 999999);
+		public NumericValue<int> 小时 = new NumericValue<int>(0, 0, 999999);
 	}
 
 }

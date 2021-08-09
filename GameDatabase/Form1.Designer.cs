@@ -36,7 +36,7 @@
             // nameBox
             // 
             this.nameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(12, 41);
+            this.nameBox.Location = new System.Drawing.Point(12, 38);
             this.nameBox.MaxLength = 32;
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(348, 26);
@@ -45,9 +45,9 @@
             // confirmButton
             // 
             this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.confirmButton.Location = new System.Drawing.Point(149, 80);
+            this.confirmButton.Location = new System.Drawing.Point(149, 74);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 34);
+            this.confirmButton.Size = new System.Drawing.Size(75, 31);
             this.confirmButton.TabIndex = 1;
             this.confirmButton.Text = "Ok";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -57,22 +57,22 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(83, 9);
+            this.label1.Location = new System.Drawing.Point(125, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 20);
+            this.label1.Size = new System.Drawing.Size(121, 20);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Enter the name for your mod";
+            this.label1.Text = "输入你的模组名";
             // 
             // NameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 126);
+            this.ClientSize = new System.Drawing.Size(372, 116);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.nameBox);
             this.Name = "NameForm";
-            this.Text = "Enter the name for your mod";
+            this.Text = "输入你的模组名";
             this.ResumeLayout(false);
             this.PerformLayout();
 

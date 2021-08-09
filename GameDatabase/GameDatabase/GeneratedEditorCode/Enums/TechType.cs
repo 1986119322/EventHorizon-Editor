@@ -10,8 +10,8 @@ namespace EditorDatabase.Enums
 {
 	public enum TechType
 	{
-		Component,
-		Ship,
-		Satellite,
+		组件,
+		飞船,
+		僚机,
 	}
 }

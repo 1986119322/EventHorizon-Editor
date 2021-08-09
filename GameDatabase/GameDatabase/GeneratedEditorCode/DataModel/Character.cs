@@ -22,38 +22,38 @@ namespace EditorDatabase.DataModel
 		public Character(CharacterSerializable serializable, Database database)
 		{
 			Id = new ItemId<Character>(serializable.Id, serializable.FileName);
-			Name = serializable.Name;
-			AvatarIcon = serializable.AvatarIcon;
-			Faction = database.GetFactionId(serializable.Faction);
-			Inventory = database.GetLootId(serializable.Inventory);
-			Fleet = database.GetFleetId(serializable.Fleet);
-			Relations = new NumericValue<int>(serializable.Relations, -100, 100);
-			IsUnique = serializable.IsUnique;
+			名称 = serializable.Name;
+			头像 = serializable.AvatarIcon;
+			势力 = database.GetFactionId(serializable.Faction);
+			物品栏 = database.GetLootId(serializable.Inventory);
+			舰队 = database.GetFleetId(serializable.Fleet);
+			初始好感度 = new NumericValue<int>(serializable.Relations, -100, 100);
+			是否唯一 = serializable.IsUnique;
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(CharacterSerializable serializable)
 		{
-			serializable.Name = Name;
-			serializable.AvatarIcon = AvatarIcon;
-			serializable.Faction = Faction.Value;
-			serializable.Inventory = Inventory.Value;
-			serializable.Fleet = Fleet.Value;
-			serializable.Relations = Relations.Value;
-			serializable.IsUnique = IsUnique;
+			serializable.Name = 名称;
+			serializable.AvatarIcon = 头像;
+			serializable.Faction = 势力.Value;
+			serializable.Inventory = 物品栏.Value;
+			serializable.Fleet = 舰队.Value;
+			serializable.Relations = 初始好感度.Value;
+			serializable.IsUnique = 是否唯一;
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Character> Id;
 
-		public string Name;
-		public string AvatarIcon;
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
-		public ItemId<LootModel> Inventory = ItemId<LootModel>.Empty;
-		public ItemId<Fleet> Fleet = ItemId<Fleet>.Empty;
-		public NumericValue<int> Relations = new NumericValue<int>(0, -100, 100);
-		public bool IsUnique;
+		public string 名称;
+		public string 头像;
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
+		public ItemId<LootModel> 物品栏 = ItemId<LootModel>.Empty;
+		public ItemId<Fleet> 舰队 = ItemId<Fleet>.Empty;
+		public NumericValue<int> 初始好感度 = new NumericValue<int>(0, -100, 100);
+		public bool 是否唯一;
 
 		public static Character DefaultValue { get; private set; }
 	}

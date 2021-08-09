@@ -22,9 +22,9 @@ namespace EditorDatabase.DataModel
 
 		public NodeAction(NodeActionSerializable serializable, Database database)
 		{
-			TargetNode = new NumericValue<int>(serializable.TargetNode, 1, 1000);
-			Requirement = new Requirement(serializable.Requirement, database);
-			ButtonText = serializable.ButtonText;
+			跳转节点 = new NumericValue<int>(serializable.TargetNode, 1, 1000);
+			出现条件 = new 条件(serializable.Requirement, database);
+			按钮文本 = serializable.ButtonText;
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -32,16 +32,16 @@ namespace EditorDatabase.DataModel
 		public NodeActionSerializable Serialize()
 		{
 			var serializable = new NodeActionSerializable();
-			serializable.TargetNode = TargetNode.Value;
-			serializable.Requirement = Requirement.Serialize();
-			serializable.ButtonText = ButtonText;
+			serializable.TargetNode = 跳转节点.Value;
+			serializable.Requirement = 出现条件.Serialize();
+			serializable.ButtonText = 按钮文本;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public NumericValue<int> TargetNode = new NumericValue<int>(0, 1, 1000);
-		public Requirement Requirement = new Requirement();
-		public string ButtonText;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public 条件 出现条件 = new 条件();
+		public string 按钮文本;
 
 		public static NodeAction DefaultValue { get; private set; }
 	}

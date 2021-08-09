@@ -22,8 +22,8 @@ namespace EditorDatabase.DataModel
 
 		public RequiredFactions(FactionFilterSerializable serializable, Database database)
 		{
-			Type = serializable.Type;
-			List = serializable.List?.Select(id => new Wrapper<Faction> { Item = database.GetFactionId(id) }).ToArray();
+			类型 = serializable.Type;
+			势力列表 = serializable.List?.Select(id => new Wrapper<Faction> { Item = database.GetFactionId(id) }).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -31,17 +31,17 @@ namespace EditorDatabase.DataModel
 		public FactionFilterSerializable Serialize()
 		{
 			var serializable = new FactionFilterSerializable();
-			serializable.Type = Type;
-			if (List == null || List.Length == 0)
+			serializable.Type = 类型;
+			if (势力列表 == null || 势力列表.Length == 0)
 			    serializable.List = null;
 			else
-			    serializable.List = List.Select(wrapper => wrapper.Item.Value).ToArray();
+			    serializable.List = 势力列表.Select(wrapper => wrapper.Item.Value).ToArray();
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public FactionFilterType Type;
-		public Wrapper<Faction>[] List;
+		public FactionFilterType 类型;
+		public Wrapper<Faction>[] 势力列表;
 
 		public static RequiredFactions DefaultValue { get; private set; }
 	}

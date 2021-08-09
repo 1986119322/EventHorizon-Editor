@@ -22,7 +22,7 @@ namespace EditorDatabase.DataModel
 
 		partial void OnDataSerialized(ref ComponentSerializable serializable)
         {
-            serializable.AmmunitionId = Ammunition.IsNull ? AmmunitionObsolete.Value : Ammunition.Value;
+            serializable.AmmunitionId = 弹头.IsNull ? 旧弹头.Value : 弹头.Value;
         }
 	}
 }

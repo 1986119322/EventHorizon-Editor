@@ -54,7 +54,7 @@ namespace EditorDatabase.Model
             }
         }
 
-        public override string ToString() { return string.IsNullOrEmpty(Name) ? "[EMPTY]" : Name; }
+        public override string ToString() { return string.IsNullOrEmpty(Name) ? "[空]" : Name; }
 
         public static readonly ItemId<T> Empty = new ItemId<T>(0, string.Empty);
     }

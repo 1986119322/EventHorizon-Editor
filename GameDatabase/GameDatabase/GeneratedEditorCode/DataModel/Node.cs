@@ -15,87 +15,87 @@ using EditorDatabase.Model;
 namespace EditorDatabase.DataModel
 {
 
-	public interface INodeContent
+	public interface I节点Content
 	{
 		void Load(NodeSerializable serializable, Database database);
 		void Save(ref NodeSerializable serializable);
 	}
 
-	public partial class Node : IDataAdapter
+	public partial class 节点 : IDataAdapter
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
-		private static INodeContent CreateContent(NodeType type)
+		private static I节点Content CreateContent(NodeType type)
 		{
 			switch (type)
 			{
-				case NodeType.Undefined:
-					return new NodeEmptyContent();
-				case NodeType.ComingSoon:
-					return new NodeEmptyContent();
-				case NodeType.ShowDialog:
-					return new Node_ShowDialog();
-				case NodeType.OpenShipyard:
-					return new Node_OpenShipyard();
-				case NodeType.Switch:
-					return new Node_Switch();
-				case NodeType.Random:
-					return new Node_Random();
-				case NodeType.Condition:
-					return new Node_Condition();
-				case NodeType.AttackFleet:
-					return new Node_AttackFleet();
-				case NodeType.AttackOccupants:
-					return new Node_AttackOccupants();
-				case NodeType.DestroyOccupants:
-					return new Node_DestroyOccupants();
-				case NodeType.SuppressOccupants:
-					return new Node_SuppressOccupants();
-				case NodeType.Retreat:
-					return new Node_Retreat();
-				case NodeType.ReceiveItem:
-					return new Node_ReceiveItem();
-				case NodeType.RemoveItem:
-					return new Node_RemoveItem();
-				case NodeType.Trade:
-					return new Node_Trade();
-				case NodeType.CompleteQuest:
-					return new NodeEmptyContent();
-				case NodeType.FailQuest:
-					return new NodeEmptyContent();
-				case NodeType.CancelQuest:
-					return new NodeEmptyContent();
-				case NodeType.StartQuest:
-					return new Node_StartQuest();
-				case NodeType.SetCharacterRelations:
-					return new Node_SetCharacterRelations();
-				case NodeType.SetFactionRelations:
-					return new Node_SetFactionRelations();
-				case NodeType.ChangeCharacterRelations:
-					return new Node_ChangeCharacterRelations();
-				case NodeType.ChangeFactionRelations:
-					return new Node_ChangeFactionRelations();
-				case NodeType.CaptureStarBase:
-					return new Node_CaptureStarBase();
-				case NodeType.LiberateStarBase:
-					return new Node_LiberateStarBase();
-				case NodeType.ChangeFaction:
-					return new Node_ChangeFaction();
+				case NodeType.未定义:
+					return new 节点EmptyContent();
+				case NodeType.即将到来:
+					return new 节点EmptyContent();
+				case NodeType.显示对话:
+					return new 节点_显示对话();
+				case NodeType.打开船坞:
+					return new 节点_打开船坞();
+				case NodeType.条件:
+					return new 节点_条件();
+				case NodeType.随机:
+					return new 节点_随机();
+				case NodeType.状态:
+					return new 节点_状态();
+				case NodeType.攻击舰队:
+					return new 节点_攻击舰队();
+				case NodeType.攻击星系敌人:
+					return new 节点_攻击星系敌人();
+				case NodeType.摧毁星系敌人:
+					return new 节点_摧毁星系敌人();
+				case NodeType.压制星系敌人:
+					return new 节点_压制星系敌人();
+				case NodeType.撤退:
+					return new 节点_撤退();
+				case NodeType.接收物品:
+					return new 节点_接收物品();
+				case NodeType.移除物品:
+					return new 节点_移除物品();
+				case NodeType.交易:
+					return new 节点_交易();
+				case NodeType.完成任务:
+					return new 节点EmptyContent();
+				case NodeType.失败任务:
+					return new 节点EmptyContent();
+				case NodeType.取消任务:
+					return new 节点EmptyContent();
+				case NodeType.开始任务:
+					return new 节点_开始任务();
+				case NodeType.设置角色好感:
+					return new 节点_设置角色好感();
+				case NodeType.设置势力声望:
+					return new 节点_设置势力声望();
+				case NodeType.更改角色好感:
+					return new 节点_更改角色好感();
+				case NodeType.更改势力声望:
+					return new 节点_更改势力声望();
+				case NodeType.占领空间站:
+					return new 节点_占领空间站();
+				case NodeType.解放空间站:
+					return new 节点_解放空间站();
+				case NodeType.更改星区势力:
+					return new 节点_更改星区势力();
 				default:
-					throw new DatabaseException("Node: Invalid content type - " + type);
+					throw new DatabaseException("节点: 无效的内容类型 - " + type);
 			}
 		}
 
-		public Node()
+		public 节点()
 		{
-			_content = new NodeEmptyContent();
+			_content = new 节点EmptyContent();
 		}
 
-		public Node(NodeSerializable serializable, Database database)
+		public 节点(NodeSerializable serializable, Database database)
 		{
 			Id = new NumericValue<int>(serializable.Id, 1, 999999);
-			Type = serializable.Type;
+			类型 = serializable.Type;
 			_content = CreateContent(serializable.Type);
 			_content.Load(serializable, database);
 
@@ -122,7 +122,7 @@ namespace EditorDatabase.DataModel
 			serializable.Transitions = null;
 			_content.Save(ref serializable);
 			serializable.Id = Id.Value;
-			serializable.Type = Type;
+			serializable.Type = 类型;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
@@ -137,7 +137,7 @@ namespace EditorDatabase.DataModel
 				var type = GetType();
 
 				yield return new Property(this, type.GetField("Id"), DataChangedEvent);
-				yield return new Property(this, type.GetField("Type"), OnTypeChanged);
+				yield return new Property(this, type.GetField("类型"), OnTypeChanged);
 
 				foreach (var item in _content.GetType().GetFields().Where(f => f.IsPublic && !f.IsStatic))
 					yield return new Property(_content, item, DataChangedEvent);
@@ -146,556 +146,556 @@ namespace EditorDatabase.DataModel
 
 		private void OnTypeChanged()
 		{
-			_content = CreateContent(Type);
+			_content = CreateContent(类型);
 			DataChangedEvent?.Invoke();
 			LayoutChangedEvent?.Invoke();
 		}
 
-		private INodeContent _content;
+		private I节点Content _content;
 		public NumericValue<int> Id = new NumericValue<int>(0, 1, 999999);
-		public NodeType Type;
+		public NodeType 类型;
 
-		public static Node DefaultValue { get; private set; }
+		public static 节点 DefaultValue { get; private set; }
 	}
 
-	public class NodeEmptyContent : INodeContent
+	public class 节点EmptyContent : I节点Content
 	{
 		public void Load(NodeSerializable serializable, Database database) {}
 		public void Save(ref NodeSerializable serializable) {}
 	}
 
-	public partial class Node_ShowDialog : INodeContent
+	public partial class 节点_显示对话 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			RequiredView = serializable.RequiredView;
-			Message = serializable.Message;
-			Enemy = database.GetFleetId(serializable.Enemy);
-			Loot = database.GetLootId(serializable.Loot);
-			Character = database.GetCharacterId(serializable.Character);
-			Actions = serializable.Actions?.Select(item => new NodeAction(item, database)).ToArray();
+			请求视图 = serializable.RequiredView;
+			信息 = serializable.Message;
+			敌人 = database.GetFleetId(serializable.Enemy);
+			物品列表 = database.GetLootId(serializable.Loot);
+			角色 = database.GetCharacterId(serializable.Character);
+			按钮 = serializable.Actions?.Select(item => new NodeAction(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.RequiredView = RequiredView;
-			serializable.Message = Message;
-			serializable.Enemy = Enemy.Value;
-			serializable.Loot = Loot.Value;
-			serializable.Character = Character.Value;
-			if (Actions == null || Actions.Length == 0)
+			serializable.RequiredView = 请求视图;
+			serializable.Message = 信息;
+			serializable.Enemy = 敌人.Value;
+			serializable.Loot = 物品列表.Value;
+			serializable.Character = 角色.Value;
+			if (按钮 == null || 按钮.Length == 0)
 			    serializable.Actions = null;
 			else
-			    serializable.Actions = Actions.Select(item => item.Serialize()).ToArray();
+			    serializable.Actions = 按钮.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public RequiredViewMode RequiredView;
-		public string Message;
-		public ItemId<Fleet> Enemy = ItemId<Fleet>.Empty;
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
-		public ItemId<Character> Character = ItemId<Character>.Empty;
-		public NodeAction[] Actions;
+		public RequiredViewMode 请求视图;
+		public string 信息;
+		public ItemId<Fleet> 敌人 = ItemId<Fleet>.Empty;
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
+		public ItemId<Character> 角色 = ItemId<Character>.Empty;
+		public NodeAction[] 按钮;
 	}
 
-	public partial class Node_OpenShipyard : INodeContent
+	public partial class 节点_打开船坞 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Faction = database.GetFactionId(serializable.Faction);
-			Level = new NumericValue<int>(serializable.Value, 0, 10000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			势力 = database.GetFactionId(serializable.Faction);
+			船坞等级 = new NumericValue<int>(serializable.Value, 0, 10000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Faction = Faction.Value;
-			serializable.Value = Level.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Faction = 势力.Value;
+			serializable.Value = 船坞等级.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
-		public NumericValue<int> Level = new NumericValue<int>(0, 0, 10000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
+		public NumericValue<int> 船坞等级 = new NumericValue<int>(0, 0, 10000);
 	}
 
-	public partial class Node_Switch : INodeContent
+	public partial class 节点_条件 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Message = serializable.Message;
-			DefaultTransition = new NumericValue<int>(serializable.DefaultTransition, 0, 999999);
-			Transitions = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
+			信息 = serializable.Message;
+			默认跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 0, 999999);
+			跳转节点 = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.Message = Message;
-			serializable.DefaultTransition = DefaultTransition.Value;
-			if (Transitions == null || Transitions.Length == 0)
+			serializable.Message = 信息;
+			serializable.DefaultTransition = 默认跳转节点.Value;
+			if (跳转节点 == null || 跳转节点.Length == 0)
 			    serializable.Transitions = null;
 			else
-			    serializable.Transitions = Transitions.Select(item => item.Serialize()).ToArray();
+			    serializable.Transitions = 跳转节点.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public string Message;
-		public NumericValue<int> DefaultTransition = new NumericValue<int>(0, 0, 999999);
-		public NodeTransition[] Transitions;
+		public string 信息;
+		public NumericValue<int> 默认跳转节点 = new NumericValue<int>(0, 0, 999999);
+		public NodeTransition[] 跳转节点;
 	}
 
-	public partial class Node_Random : INodeContent
+	public partial class 节点_随机 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Message = serializable.Message;
-			DefaultTransition = new NumericValue<int>(serializable.DefaultTransition, 0, 999999);
-			Transitions = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
+			信息 = serializable.Message;
+			默认跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 0, 999999);
+			跳转节点 = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.Message = Message;
-			serializable.DefaultTransition = DefaultTransition.Value;
-			if (Transitions == null || Transitions.Length == 0)
+			serializable.Message = 信息;
+			serializable.DefaultTransition = 默认跳转节点.Value;
+			if (跳转节点 == null || 跳转节点.Length == 0)
 			    serializable.Transitions = null;
 			else
-			    serializable.Transitions = Transitions.Select(item => item.Serialize()).ToArray();
+			    serializable.Transitions = 跳转节点.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public string Message;
-		public NumericValue<int> DefaultTransition = new NumericValue<int>(0, 0, 999999);
-		public NodeTransition[] Transitions;
+		public string 信息;
+		public NumericValue<int> 默认跳转节点 = new NumericValue<int>(0, 0, 999999);
+		public NodeTransition[] 跳转节点;
 	}
 
-	public partial class Node_Condition : INodeContent
+	public partial class 节点_状态 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Message = serializable.Message;
-			Transitions = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
+			信息 = serializable.Message;
+			跳转节点 = serializable.Transitions?.Select(item => new NodeTransition(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.Message = Message;
-			if (Transitions == null || Transitions.Length == 0)
+			serializable.Message = 信息;
+			if (跳转节点 == null || 跳转节点.Length == 0)
 			    serializable.Transitions = null;
 			else
-			    serializable.Transitions = Transitions.Select(item => item.Serialize()).ToArray();
+			    serializable.Transitions = 跳转节点.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
-		public string Message;
-		public NodeTransition[] Transitions;
+		public string 信息;
+		public NodeTransition[] 跳转节点;
 	}
 
-	public partial class Node_AttackFleet : INodeContent
+	public partial class 节点_攻击舰队 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			VictoryTransition = new NumericValue<int>(serializable.DefaultTransition, 1, 999999);
-			FailureTransition = new NumericValue<int>(serializable.FailureTransition, 1, 999999);
-			Enemy = database.GetFleetId(serializable.Enemy);
-			Loot = database.GetLootId(serializable.Loot);
+			胜利跳转 = new NumericValue<int>(serializable.DefaultTransition, 1, 999999);
+			失败跳转 = new NumericValue<int>(serializable.FailureTransition, 1, 999999);
+			敌人 = database.GetFleetId(serializable.Enemy);
+			物品列表 = database.GetLootId(serializable.Loot);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = VictoryTransition.Value;
-			serializable.FailureTransition = FailureTransition.Value;
-			serializable.Enemy = Enemy.Value;
-			serializable.Loot = Loot.Value;
+			serializable.DefaultTransition = 胜利跳转.Value;
+			serializable.FailureTransition = 失败跳转.Value;
+			serializable.Enemy = 敌人.Value;
+			serializable.Loot = 物品列表.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> VictoryTransition = new NumericValue<int>(0, 1, 999999);
-		public NumericValue<int> FailureTransition = new NumericValue<int>(0, 1, 999999);
-		public ItemId<Fleet> Enemy = ItemId<Fleet>.Empty;
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
+		public NumericValue<int> 胜利跳转 = new NumericValue<int>(0, 1, 999999);
+		public NumericValue<int> 失败跳转 = new NumericValue<int>(0, 1, 999999);
+		public ItemId<Fleet> 敌人 = ItemId<Fleet>.Empty;
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
 	}
 
-	public partial class Node_AttackOccupants : INodeContent
+	public partial class 节点_攻击星系敌人 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			VictoryTransition = new NumericValue<int>(serializable.DefaultTransition, 1, 999999);
-			FailureTransition = new NumericValue<int>(serializable.FailureTransition, 1, 999999);
+			胜利跳转 = new NumericValue<int>(serializable.DefaultTransition, 1, 999999);
+			失败跳转 = new NumericValue<int>(serializable.FailureTransition, 1, 999999);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = VictoryTransition.Value;
-			serializable.FailureTransition = FailureTransition.Value;
+			serializable.DefaultTransition = 胜利跳转.Value;
+			serializable.FailureTransition = 失败跳转.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> VictoryTransition = new NumericValue<int>(0, 1, 999999);
-		public NumericValue<int> FailureTransition = new NumericValue<int>(0, 1, 999999);
+		public NumericValue<int> 胜利跳转 = new NumericValue<int>(0, 1, 999999);
+		public NumericValue<int> 失败跳转 = new NumericValue<int>(0, 1, 999999);
 	}
 
-	public partial class Node_DestroyOccupants : INodeContent
+	public partial class 节点_摧毁星系敌人 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
 	}
 
-	public partial class Node_SuppressOccupants : INodeContent
+	public partial class 节点_压制星系敌人 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
 	}
 
-	public partial class Node_Retreat : INodeContent
+	public partial class 节点_撤退 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
 	}
 
-	public partial class Node_ReceiveItem : INodeContent
+	public partial class 节点_接收物品 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Loot = database.GetLootId(serializable.Loot);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			物品列表 = database.GetLootId(serializable.Loot);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Loot = Loot.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Loot = 物品列表.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
 	}
 
-	public partial class Node_RemoveItem : INodeContent
+	public partial class 节点_移除物品 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Loot = database.GetLootId(serializable.Loot);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			物品列表 = database.GetLootId(serializable.Loot);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Loot = Loot.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Loot = 物品列表.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
 	}
 
-	public partial class Node_Trade : INodeContent
+	public partial class 节点_交易 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Loot = database.GetLootId(serializable.Loot);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			物品列表 = database.GetLootId(serializable.Loot);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Loot = Loot.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Loot = 物品列表.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<LootModel> Loot = ItemId<LootModel>.Empty;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<LootModel> 物品列表 = ItemId<LootModel>.Empty;
 	}
 
-	public partial class Node_StartQuest : INodeContent
+	public partial class 节点_开始任务 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Quest = database.GetQuestId(serializable.Quest);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			任务 = database.GetQuestId(serializable.Quest);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Quest = Quest.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Quest = 任务.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<QuestModel> Quest = ItemId<QuestModel>.Empty;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<QuestModel> 任务 = ItemId<QuestModel>.Empty;
 	}
 
-	public partial class Node_SetCharacterRelations : INodeContent
+	public partial class 节点_设置角色好感 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Character = database.GetCharacterId(serializable.Character);
-			Value = new NumericValue<int>(serializable.Value, -100, 100);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			角色 = database.GetCharacterId(serializable.Character);
+			好感度 = new NumericValue<int>(serializable.Value, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Character = Character.Value;
-			serializable.Value = Value.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Character = 角色.Value;
+			serializable.Value = 好感度.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<Character> Character = ItemId<Character>.Empty;
-		public NumericValue<int> Value = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<Character> 角色 = ItemId<Character>.Empty;
+		public NumericValue<int> 好感度 = new NumericValue<int>(0, -100, 100);
 	}
 
-	public partial class Node_SetFactionRelations : INodeContent
+	public partial class 节点_设置势力声望 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Value = new NumericValue<int>(serializable.Value, -100, 100);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			好感度 = new NumericValue<int>(serializable.Value, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Value = Value.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Value = 好感度.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public NumericValue<int> Value = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 好感度 = new NumericValue<int>(0, -100, 100);
 	}
 
-	public partial class Node_ChangeCharacterRelations : INodeContent
+	public partial class 节点_更改角色好感 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Character = database.GetCharacterId(serializable.Character);
-			Value = new NumericValue<int>(serializable.Value, -100, 100);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			角色 = database.GetCharacterId(serializable.Character);
+			好感度 = new NumericValue<int>(serializable.Value, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Character = Character.Value;
-			serializable.Value = Value.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Character = 角色.Value;
+			serializable.Value = 好感度.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<Character> Character = ItemId<Character>.Empty;
-		public NumericValue<int> Value = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<Character> 角色 = ItemId<Character>.Empty;
+		public NumericValue<int> 好感度 = new NumericValue<int>(0, -100, 100);
 	}
 
-	public partial class Node_ChangeFactionRelations : INodeContent
+	public partial class 节点_更改势力声望 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Value = new NumericValue<int>(serializable.Value, -100, 100);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			好感度 = new NumericValue<int>(serializable.Value, -100, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Value = Value.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Value = 好感度.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public NumericValue<int> Value = new NumericValue<int>(0, -100, 100);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 好感度 = new NumericValue<int>(0, -100, 100);
 	}
 
-	public partial class Node_CaptureStarBase : INodeContent
+	public partial class 节点_占领空间站 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
 	}
 
-	public partial class Node_LiberateStarBase : INodeContent
+	public partial class 节点_解放空间站 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
 	}
 
-	public partial class Node_ChangeFaction : INodeContent
+	public partial class 节点_更改星区势力 : I节点Content
 	{
 		partial void OnDataDeserialized(NodeSerializable serializable, Database database);
 		partial void OnDataSerialized(ref NodeSerializable serializable);
 
 		public void Load(NodeSerializable serializable, Database database)
 		{
-			Transition = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
-			Faction = database.GetFactionId(serializable.Faction);
+			跳转节点 = new NumericValue<int>(serializable.DefaultTransition, 1, 1000);
+			势力 = database.GetFactionId(serializable.Faction);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref NodeSerializable serializable)
 		{
-			serializable.DefaultTransition = Transition.Value;
-			serializable.Faction = Faction.Value;
+			serializable.DefaultTransition = 跳转节点.Value;
+			serializable.Faction = 势力.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> Transition = new NumericValue<int>(0, 1, 1000);
-		public ItemId<Faction> Faction = ItemId<Faction>.Empty;
+		public NumericValue<int> 跳转节点 = new NumericValue<int>(0, 1, 1000);
+		public ItemId<Faction> 势力 = ItemId<Faction>.Empty;
 	}
 
 }

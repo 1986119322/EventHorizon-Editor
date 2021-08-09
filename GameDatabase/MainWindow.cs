@@ -61,7 +61,7 @@ namespace GameDatabase
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e.Message);
+                MessageBox.Show("错误: " + e.Message);
             }
         }
 
@@ -80,7 +80,7 @@ namespace GameDatabase
 
                 if (Directory.Exists(path))
                 {
-                    ItemTypeText.Text = @"Directory";
+                    ItemTypeText.Text = @"目录";
                     structDataView1.Data = GetDirectoryInfo(path);
                     return;
                 }
@@ -89,7 +89,7 @@ namespace GameDatabase
                 var name = Helpers.FileName(path);
                 var item = JsonConvert.DeserializeObject<SerializableItem>(data);
                 item.FileName = name;
-                if ((ItemType)item.ItemType == ItemType.Undefined)
+                if ((ItemType)item.ItemType == ItemType.未定义)
                     return;
 
                 ItemTypeText.Text = ((ItemType)item.ItemType).ToString();
@@ -108,20 +108,20 @@ namespace GameDatabase
 
         private struct DirectoryInfoData
         {
-            public NumericValue<int> FilesCount;
-            public ItemType ItemTypes;
-            public NumericValue<int> LastItemId;
-            public NumericValue<int> FirstUnusedId;
+            public NumericValue<int> Json数量;//FilesCount
+            public ItemType 文件类型;//ItemTypes
+            public NumericValue<int> 最后使用的Id;//LastItemId
+            public NumericValue<int> 首个未使用的Id;//FirstUnusedId
         }
 
         private DirectoryInfoData GetDirectoryInfo(string path)
         {
             DirectoryInfoData data = new DirectoryInfoData
             {
-                FilesCount = new NumericValue<int>(0, 0, int.MaxValue),
-                ItemTypes = ItemType.Undefined,
-                LastItemId = new NumericValue<int>(0, 0, int.MaxValue),
-                FirstUnusedId = new NumericValue<int>(0, 0, int.MaxValue),
+                Json数量 = new NumericValue<int>(0, 0, int.MaxValue),
+                文件类型 = ItemType.未定义,
+                最后使用的Id = new NumericValue<int>(0, 0, int.MaxValue),
+                首个未使用的Id = new NumericValue<int>(0, 0, int.MaxValue),
             };
 
             try
@@ -132,22 +132,22 @@ namespace GameDatabase
                     var text = File.ReadAllText(file);
                     var item = JsonConvert.DeserializeObject<SerializableItem>(text);
 
-                    data.FilesCount.Value++;
+                    data.Json数量.Value++;
 
-                    if (item.ItemType == ItemType.Undefined)
+                    if (item.ItemType == ItemType.未定义)
                         continue;
 
                     if (ids.Count <= item.Id)
                         ids.AddRange(Enumerable.Repeat(false, item.Id - ids.Count + 1));
                     ids[item.Id] = true;
 
-                    if (data.ItemTypes == ItemType.Undefined)
-                        data.ItemTypes = item.ItemType;
+                    if (data.文件类型 == ItemType.未定义)
+                        data.文件类型 = item.ItemType;
                 }
 
-                data.LastItemId.Value = ids.Count - 1;
+                data.最后使用的Id.Value = ids.Count - 1;
                 var index = ids.IndexOf(false);
-                data.FirstUnusedId.Value = index > 0 ? index : ids.Count;
+                data.首个未使用的Id.Value = index > 0 ? index : ids.Count;
             }
             catch (Exception e)
             {
@@ -169,11 +169,11 @@ namespace GameDatabase
 
             switch (_selectedItem.ItemType)
             {
-                case ItemType.Component:
+                case ItemType.组件:
                     new ComponentEditorDialog(_database, (Component)item).ShowDialog();
                     break;
-                case ItemType.Satellite:
-                case ItemType.Ship:
+                case ItemType.僚机:
+                case ItemType.飞船:
                     new ShipEditorDialog(_database, item, _selectedItem.FileName).ShowDialog();
                     break;
                 default:
@@ -252,7 +252,7 @@ namespace GameDatabase
 
         private void changeMaxListLengthToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputForm input = new InputForm("Intput new length.", Settings.Default.MaxListLen.ToString());
+            InputForm input = new InputForm("输入新的最大列表长度", Settings.Default.MaxListLen.ToString());
             try
             {
                 if (input.ShowDialog() == DialogResult.OK)

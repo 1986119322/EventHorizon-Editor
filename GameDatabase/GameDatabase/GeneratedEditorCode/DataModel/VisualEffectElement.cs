@@ -22,13 +22,13 @@ namespace EditorDatabase.DataModel
 
 		public VisualEffectElement(VisualEffectElementSerializable serializable, Database database)
 		{
-			Type = serializable.Type;
-			Image = serializable.Image;
-			ColorMode = serializable.ColorMode;
-			Color = Helpers.ColorFromString(serializable.Color);
-			Size = new NumericValue<float>(serializable.Size, 0.001f, 100f);
-			StartTime = new NumericValue<float>(serializable.StartTime, 0f, 1000f);
-			Lifetime = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
+			类型 = serializable.Type;
+			贴图 = serializable.Image;
+			颜色模式 = serializable.ColorMode;
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			大小 = new NumericValue<float>(serializable.Size, 0.001f, 100f);
+			开始时间 = new NumericValue<float>(serializable.StartTime, 0f, 1000f);
+			持续时间 = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -36,24 +36,24 @@ namespace EditorDatabase.DataModel
 		public VisualEffectElementSerializable Serialize()
 		{
 			var serializable = new VisualEffectElementSerializable();
-			serializable.Type = Type;
-			serializable.Image = Image;
-			serializable.ColorMode = ColorMode;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.Size = Size.Value;
-			serializable.StartTime = StartTime.Value;
-			serializable.Lifetime = Lifetime.Value;
+			serializable.Type = 类型;
+			serializable.Image = 贴图;
+			serializable.ColorMode = 颜色模式;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.Size = 大小.Value;
+			serializable.StartTime = 开始时间.Value;
+			serializable.Lifetime = 持续时间.Value;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public VisualEffectType Type;
-		public string Image;
-		public ColorMode ColorMode;
-		public System.Drawing.Color Color;
-		public NumericValue<float> Size = new NumericValue<float>(0, 0.001f, 100f);
-		public NumericValue<float> StartTime = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Lifetime = new NumericValue<float>(0, 0f, 1000f);
+		public VisualEffectType 类型;
+		public string 贴图;
+		public ColorMode 颜色模式;
+		public System.Drawing.Color 颜色;
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0.001f, 100f);
+		public NumericValue<float> 开始时间 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 持续时间 = new NumericValue<float>(0, 0f, 1000f);
 
 		public static VisualEffectElement DefaultValue { get; private set; }
 	}

@@ -21,27 +21,27 @@ namespace EditorDatabase.DataModel
 
 		public ExplorationSettings(ExplorationSettingsSerializable serializable, Database database)
 		{
-			OutpostShip = database.GetShipId(serializable.OutpostShip);
-			TurretShip = database.GetShipId(serializable.TurretShip);
-			InfectedPlanetFaction = database.GetFactionId(serializable.InfectedPlanetFaction);
-			HiveShipBuild = database.GetShipBuildId(serializable.HiveShipBuild);
+			地面哨站船体 = database.GetShipId(serializable.OutpostShip);
+			地面炮塔船体 = database.GetShipId(serializable.TurretShip);
+			感染星球势力 = database.GetFactionId(serializable.InfectedPlanetFaction);
+			巢穴飞船配置 = database.GetShipBuildId(serializable.HiveShipBuild);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ExplorationSettingsSerializable serializable)
 		{
-			serializable.OutpostShip = OutpostShip.Value;
-			serializable.TurretShip = TurretShip.Value;
-			serializable.InfectedPlanetFaction = InfectedPlanetFaction.Value;
-			serializable.HiveShipBuild = HiveShipBuild.Value;
+			serializable.OutpostShip = 地面哨站船体.Value;
+			serializable.TurretShip = 地面炮塔船体.Value;
+			serializable.InfectedPlanetFaction = 感染星球势力.Value;
+			serializable.HiveShipBuild = 巢穴飞船配置.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<Ship> OutpostShip = ItemId<Ship>.Empty;
-		public ItemId<Ship> TurretShip = ItemId<Ship>.Empty;
-		public ItemId<Faction> InfectedPlanetFaction = ItemId<Faction>.Empty;
-		public ItemId<ShipBuild> HiveShipBuild = ItemId<ShipBuild>.Empty;
+		public ItemId<Ship> 地面哨站船体 = ItemId<Ship>.Empty;
+		public ItemId<Ship> 地面炮塔船体 = ItemId<Ship>.Empty;
+		public ItemId<Faction> 感染星球势力 = ItemId<Faction>.Empty;
+		public ItemId<ShipBuild> 巢穴飞船配置 = ItemId<ShipBuild>.Empty;
 
 		public static ExplorationSettings DefaultValue { get; private set; }
 	}

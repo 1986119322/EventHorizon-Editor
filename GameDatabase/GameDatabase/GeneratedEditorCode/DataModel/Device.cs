@@ -22,62 +22,62 @@ namespace EditorDatabase.DataModel
 		public Device(DeviceSerializable serializable, Database database)
 		{
 			Id = new ItemId<Device>(serializable.Id, serializable.FileName);
-			DeviceClass = serializable.DeviceClass;
-			EnergyConsumption = new NumericValue<float>(serializable.EnergyConsumption, 0f, 1E+09f);
-			PassiveEnergyConsumption = new NumericValue<float>(serializable.PassiveEnergyConsumption, 0f, 1E+09f);
-			Power = new NumericValue<float>(serializable.Power, 0f, 1000f);
-			Range = new NumericValue<float>(serializable.Range, 0f, 1000f);
-			Size = new NumericValue<float>(serializable.Size, 0f, 1000f);
-			Cooldown = new NumericValue<float>(serializable.Cooldown, 0f, 1000f);
-			Lifetime = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
-			Offset = serializable.Offset;
-			ActivationType = serializable.ActivationType;
-			Color = Helpers.ColorFromString(serializable.Color);
-			Sound = serializable.Sound;
-			EffectPrefab = serializable.EffectPrefab;
-			ObjectPrefab = serializable.ObjectPrefab;
-			ControlButtonIcon = serializable.ControlButtonIcon;
+			类型 = serializable.DeviceClass;
+			主动能耗 = new NumericValue<float>(serializable.EnergyConsumption, 0f, 1E+09f);
+			被动能耗 = new NumericValue<float>(serializable.PassiveEnergyConsumption, 0f, 1E+09f);
+			效果强度 = new NumericValue<float>(serializable.Power, 0f, 1000f);
+			射程 = new NumericValue<float>(serializable.Range, 0f, 1000f);
+			大小 = new NumericValue<float>(serializable.Size, 0f, 1000f);
+			冷却 = new NumericValue<float>(serializable.Cooldown, 0f, 1000f);
+			持续时间 = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
+			效果偏移 = serializable.Offset;
+			控制类型 = serializable.ActivationType;
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			音效 = serializable.Sound;
+			引用效果 = serializable.EffectPrefab;
+			引用对象 = serializable.ObjectPrefab;
+			按钮贴图 = serializable.ControlButtonIcon;
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(DeviceSerializable serializable)
 		{
-			serializable.DeviceClass = DeviceClass;
-			serializable.EnergyConsumption = EnergyConsumption.Value;
-			serializable.PassiveEnergyConsumption = PassiveEnergyConsumption.Value;
-			serializable.Power = Power.Value;
-			serializable.Range = Range.Value;
-			serializable.Size = Size.Value;
-			serializable.Cooldown = Cooldown.Value;
-			serializable.Lifetime = Lifetime.Value;
-			serializable.Offset = Offset;
-			serializable.ActivationType = ActivationType;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.Sound = Sound;
-			serializable.EffectPrefab = EffectPrefab;
-			serializable.ObjectPrefab = ObjectPrefab;
-			serializable.ControlButtonIcon = ControlButtonIcon;
+			serializable.DeviceClass = 类型;
+			serializable.EnergyConsumption = 主动能耗.Value;
+			serializable.PassiveEnergyConsumption = 被动能耗.Value;
+			serializable.Power = 效果强度.Value;
+			serializable.Range = 射程.Value;
+			serializable.Size = 大小.Value;
+			serializable.Cooldown = 冷却.Value;
+			serializable.Lifetime = 持续时间.Value;
+			serializable.Offset = 效果偏移;
+			serializable.ActivationType = 控制类型;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.Sound = 音效;
+			serializable.EffectPrefab = 引用效果;
+			serializable.ObjectPrefab = 引用对象;
+			serializable.ControlButtonIcon = 按钮贴图;
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<Device> Id;
 
-		public DeviceClass DeviceClass;
-		public NumericValue<float> EnergyConsumption = new NumericValue<float>(0, 0f, 1E+09f);
-		public NumericValue<float> PassiveEnergyConsumption = new NumericValue<float>(0, 0f, 1E+09f);
-		public NumericValue<float> Power = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Range = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Size = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Cooldown = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> Lifetime = new NumericValue<float>(0, 0f, 1000f);
-		public Vector2 Offset;
-		public ActivationType ActivationType;
-		public System.Drawing.Color Color;
-		public string Sound;
-		public string EffectPrefab;
-		public string ObjectPrefab;
-		public string ControlButtonIcon;
+		public DeviceClass 类型;
+		public NumericValue<float> 主动能耗 = new NumericValue<float>(0, 0f, 1E+09f);
+		public NumericValue<float> 被动能耗 = new NumericValue<float>(0, 0f, 1E+09f);
+		public NumericValue<float> 效果强度 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 射程 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 冷却 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 持续时间 = new NumericValue<float>(0, 0f, 1000f);
+		public Vector2 效果偏移;
+		public ActivationType 控制类型;
+		public System.Drawing.Color 颜色;
+		public string 音效;
+		public string 引用效果;
+		public string 引用对象;
+		public string 按钮贴图;
 
 		public static Device DefaultValue { get; private set; }
 	}

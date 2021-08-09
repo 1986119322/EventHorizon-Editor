@@ -10,9 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum ColorMode
 	{
-		TakeFromOwner,
-		UseMyOwn,
-		Blend,
-		Multiply,
+		继承上级颜色,
+		固定颜色,
+		混合颜色,
+		颜色通道,
 	}
 }

@@ -22,20 +22,20 @@ namespace EditorDatabase.DataModel
 		public ComponentMod(ComponentModSerializable serializable, Database database)
 		{
 			Id = new ItemId<ComponentMod>(serializable.Id, serializable.FileName);
-			Type = serializable.Type;
+			类型 = serializable.Type;
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ComponentModSerializable serializable)
 		{
-			serializable.Type = Type;
+			serializable.Type = 类型;
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<ComponentMod> Id;
 
-		public ComponentModType Type;
+		public ComponentModType 类型;
 
 		public static ComponentMod DefaultValue { get; private set; }
 	}

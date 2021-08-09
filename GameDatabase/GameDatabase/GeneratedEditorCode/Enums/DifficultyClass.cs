@@ -10,8 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum DifficultyClass
 	{
-		Default = 0,
-		Class1 = 1,
-		Class2 = 2,
+		默认 = 0,
+		一改 = 1,
+		二改 = 2,
+		三改 = 3,
 	}
 }

@@ -27,12 +27,12 @@ namespace GameDatabase
             _ignoreEvents = true;
 
             Text = _dialogName;
-            structDataEditor1.Exclusions = new List<string>() { "Layout", "Barrels" };
+            structDataEditor1.Exclusions = new List<string>() { "Layout", "炮管列表" };
             structDataEditor1.Database = _database;
             structDataEditor1.Data = _item as IDataAdapter ?? new DataAdapter(_item);
             layoutEditor1.Colors.Clear();
             layoutEditor1.Colors.Add((char)CellType.Empty, Color.LightGray);
-            layoutEditor1.Colors.Add((char)CellType.Engine, Color.FromArgb(192, 255,255,0));
+            layoutEditor1.Colors.Add((char)CellType.Engine, Color.FromArgb(192, 255, 255, 0));
             layoutEditor1.Colors.Add((char)CellType.Weapon, Color.FromArgb(192, 255, 0, 0));
             layoutEditor1.Colors.Add((char)CellType.Inner, Color.FromArgb(192, 0, 255, 0));
             layoutEditor1.Colors.Add((char)CellType.InnerOuter, Color.FromArgb(192, 0, 255, 255));
@@ -45,15 +45,15 @@ namespace GameDatabase
             {
                 var ship = (Ship)_item;
                 layout = ship.Layout;
-                barrelCollection.Data = ship.Barrels;
-                layoutEditor1.Image = _database.GetImage(ship.ModelImage).Image;
+                barrelCollection.Data = ship.炮管列表;
+                layoutEditor1.Image = _database.GetImage(ship.模型贴图).Image;
             }
             else if (_item is Satellite)
             {
                 var satellite = (Satellite)_item;
                 layout = satellite.Layout;
-                barrelCollection.Data = satellite.Barrels;
-                layoutEditor1.Image = _database.GetImage(satellite.ModelImage).Image;
+                barrelCollection.Data = satellite.炮管列表;
+                layoutEditor1.Image = _database.GetImage(satellite.模型贴图).Image;
             }
             else
                 throw new ArgumentException();
@@ -194,11 +194,11 @@ namespace GameDatabase
         {
             if (_item is Ship)
             {
-                ((Ship)_item).Barrels = (Barrel[])barrelCollection.Data;
+                ((Ship)_item).炮管列表 = (Barrel[])barrelCollection.Data;
             }
             else if (_item is Satellite)
             {
-                ((Satellite)_item).Barrels = (Barrel[])barrelCollection.Data;
+                ((Satellite)_item).炮管列表 = (Barrel[])barrelCollection.Data;
             }
             else
                 throw new ArgumentException();
@@ -213,13 +213,13 @@ namespace GameDatabase
 
         private void UpdateBarrels()
         {
-            layoutEditor1.Barrels = ((Barrel[]) barrelCollection.Data).Select(item => new LayoutEditor.BarrelData
+            layoutEditor1.Barrels = ((Barrel[])barrelCollection.Data).Select(item => new LayoutEditor.BarrelData
             {
-                X = item.Position.x,
-                Y = item.Position.y,
-                Text = item.WeaponClass,
-                Offset = item.Offset.Value,
-                Rotation = item.Rotation.Value,
+                X = item.位置.x,
+                Y = item.位置.y,
+                Text = item.红格类型,
+                Offset = item.发射偏移.Value,
+                Rotation = item.初始朝向.Value,
             }).ToArray();
         }
     }

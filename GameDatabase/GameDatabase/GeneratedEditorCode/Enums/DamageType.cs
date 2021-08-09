@@ -10,9 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum DamageType
 	{
-		Impact,
-		Energy,
-		Heat,
-		Direct,
+		动能,
+		能量,
+		热能,
+		穿甲,
 	}
 }

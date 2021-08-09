@@ -10,9 +10,9 @@ namespace EditorDatabase.Enums
 {
 	public enum RequiredViewMode
 	{
-		Any = 0,
-		StarSystem = 1,
-		StarMap = 2,
-		GalaxyMap = 3,
+		任意 = 0,
+		行星际星图 = 1,
+		恒星际星图 = 2,
+		引导星图 = 3,
 	}
 }

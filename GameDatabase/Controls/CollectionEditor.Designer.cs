@@ -95,7 +95,7 @@
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 1;
-            this.addButton.Text = "Add";
+            this.addButton.Text = "添加";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
@@ -106,7 +106,7 @@
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 1;
-            this.deleteButton.Text = "Delete";
+            this.deleteButton.Text = "移除";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
@@ -117,7 +117,7 @@
             this.moveUpButton.Name = "moveUpButton";
             this.moveUpButton.Size = new System.Drawing.Size(75, 23);
             this.moveUpButton.TabIndex = 1;
-            this.moveUpButton.Text = "Move Up";
+            this.moveUpButton.Text = "上移";
             this.moveUpButton.UseVisualStyleBackColor = true;
             this.moveUpButton.Click += new System.EventHandler(this.moveUpButton_Click);
             // 
@@ -128,7 +128,7 @@
             this.moveDownButton.Name = "moveDownButton";
             this.moveDownButton.Size = new System.Drawing.Size(75, 23);
             this.moveDownButton.TabIndex = 1;
-            this.moveDownButton.Text = "MoveDown";
+            this.moveDownButton.Text = "下移";
             this.moveDownButton.UseVisualStyleBackColor = true;
             this.moveDownButton.Click += new System.EventHandler(this.moveDownButton_Click);
             // 

@@ -10,8 +10,8 @@ namespace EditorDatabase.Enums
 {
 	public enum ActivationType
 	{
-		None,
-		Manual,
-		Mixed,
+		自动,
+		手动,
+		混合,
 	}
 }

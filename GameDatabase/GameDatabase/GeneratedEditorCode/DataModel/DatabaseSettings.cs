@@ -21,30 +21,30 @@ namespace EditorDatabase.DataModel
 
 		public DatabaseSettings(DatabaseSettingsSerializable serializable, Database database)
 		{
-			DatabaseVersion = new NumericValue<int>(serializable.DatabaseVersion, 1, 2147483647);
-			ModName = serializable.ModName;
-			ModId = serializable.ModId;
-			ModVersion = new NumericValue<int>(serializable.ModVersion, -2147483648, 2147483647);
-			UnloadOriginalDatabase = serializable.UnloadOriginalDatabase;
+			数据库版本 = new NumericValue<int>(serializable.DatabaseVersion, 1, 2147483647);
+			模组名 = serializable.ModName;
+			模组唯一标识 = serializable.ModId;
+			模组版本 = new NumericValue<int>(serializable.ModVersion, -2147483648, 2147483647);
+			不装载原版数据库 = serializable.UnloadOriginalDatabase;
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(DatabaseSettingsSerializable serializable)
 		{
-			serializable.DatabaseVersion = DatabaseVersion.Value;
-			serializable.ModName = ModName;
-			serializable.ModId = ModId;
-			serializable.ModVersion = ModVersion.Value;
-			serializable.UnloadOriginalDatabase = UnloadOriginalDatabase;
+			serializable.DatabaseVersion = 数据库版本.Value;
+			serializable.ModName = 模组名;
+			serializable.ModId = 模组唯一标识;
+			serializable.ModVersion = 模组版本.Value;
+			serializable.UnloadOriginalDatabase = 不装载原版数据库;
 			OnDataSerialized(ref serializable);
 		}
 
-		public NumericValue<int> DatabaseVersion = new NumericValue<int>(0, 1, 2147483647);
-		public string ModName;
-		public string ModId;
-		public NumericValue<int> ModVersion = new NumericValue<int>(0, -2147483648, 2147483647);
-		public bool UnloadOriginalDatabase;
+		public NumericValue<int> 数据库版本 = new NumericValue<int>(0, 1, 2147483647);
+		public string 模组名;
+		public string 模组唯一标识;
+		public NumericValue<int> 模组版本 = new NumericValue<int>(0, -2147483648, 2147483647);
+		public bool 不装载原版数据库;
 
 		public static DatabaseSettings DefaultValue { get; private set; }
 	}

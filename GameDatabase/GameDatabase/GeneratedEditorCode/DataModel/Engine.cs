@@ -22,8 +22,8 @@ namespace EditorDatabase.DataModel
 
 		public Engine(EngineSerializable serializable, Database database)
 		{
-			Position = serializable.Position;
-			Size = new NumericValue<float>(serializable.Size, 0f, 1f);
+			位置 = serializable.Position;
+			大小 = new NumericValue<float>(serializable.Size, 0f, 1f);
 
 			OnDataDeserialized(serializable, database);
 		}
@@ -31,14 +31,14 @@ namespace EditorDatabase.DataModel
 		public EngineSerializable Serialize()
 		{
 			var serializable = new EngineSerializable();
-			serializable.Position = Position;
-			serializable.Size = Size.Value;
+			serializable.Position = 位置;
+			serializable.Size = 大小.Value;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
 
-		public Vector2 Position;
-		public NumericValue<float> Size = new NumericValue<float>(0, 0f, 1f);
+		public Vector2 位置;
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0f, 1f);
 
 		public static Engine DefaultValue { get; private set; }
 	}

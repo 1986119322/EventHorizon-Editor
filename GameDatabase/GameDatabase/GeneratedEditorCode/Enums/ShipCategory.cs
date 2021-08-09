@@ -10,12 +10,12 @@ namespace EditorDatabase.Enums
 {
 	public enum ShipCategory
 	{
-		Common,
-		Rare,
-		Flagship,
-		Special,
-		Starbase,
-		Hidden,
-		Drone,
+		常规,
+		稀有,
+		旗舰,
+		特殊,
+		空间站,
+		隐藏,
+		无人机,
 	}
 }

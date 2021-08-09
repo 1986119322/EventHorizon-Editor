@@ -22,23 +22,23 @@ namespace EditorDatabase.DataModel
 		public VisualEffect(VisualEffectSerializable serializable, Database database)
 		{
 			Id = new ItemId<VisualEffect>(serializable.Id, serializable.FileName);
-			Elements = serializable.Elements?.Select(item => new VisualEffectElement(item, database)).ToArray();
+			元素列表 = serializable.Elements?.Select(item => new VisualEffectElement(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(VisualEffectSerializable serializable)
 		{
-			if (Elements == null || Elements.Length == 0)
+			if (元素列表 == null || 元素列表.Length == 0)
 			    serializable.Elements = null;
 			else
-			    serializable.Elements = Elements.Select(item => item.Serialize()).ToArray();
+			    serializable.Elements = 元素列表.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<VisualEffect> Id;
 
-		public VisualEffectElement[] Elements;
+		public VisualEffectElement[] 元素列表;
 
 		public static VisualEffect DefaultValue { get; private set; }
 	}

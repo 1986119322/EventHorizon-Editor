@@ -15,43 +15,43 @@ using EditorDatabase.Model;
 namespace EditorDatabase.DataModel
 {
 
-	public interface IBulletTriggerContent
+	public interface I弹头触发器Content
 	{
 		void Load(BulletTriggerSerializable serializable, Database database);
 		void Save(ref BulletTriggerSerializable serializable);
 	}
 
-	public partial class BulletTrigger : IDataAdapter
+	public partial class 弹头触发器 : IDataAdapter
 	{
 		partial void OnDataDeserialized(BulletTriggerSerializable serializable, Database database);
 		partial void OnDataSerialized(ref BulletTriggerSerializable serializable);
 
-		private static IBulletTriggerContent CreateContent(BulletEffectType type)
+		private static I弹头触发器Content CreateContent(BulletEffectType type)
 		{
 			switch (type)
 			{
-				case BulletEffectType.None:
-					return new BulletTriggerEmptyContent();
-				case BulletEffectType.PlaySfx:
-					return new BulletTrigger_PlaySfx();
-				case BulletEffectType.SpawnBullet:
-					return new BulletTrigger_SpawnBullet();
-				case BulletEffectType.Detonate:
-					return new BulletTriggerEmptyContent();
+				case BulletEffectType.无:
+					return new 弹头触发器EmptyContent();
+				case BulletEffectType.播放视觉效果:
+					return new 弹头触发器_播放视觉效果();
+				case BulletEffectType.生成弹头:
+					return new 弹头触发器_生成弹头();
+				case BulletEffectType.销毁弹头:
+					return new 弹头触发器EmptyContent();
 				default:
-					throw new DatabaseException("BulletTrigger: Invalid content type - " + type);
+					throw new DatabaseException("弹头触发器: 无效的内容类型 - " + type);
 			}
 		}
 
-		public BulletTrigger()
+		public 弹头触发器()
 		{
-			_content = new BulletTriggerEmptyContent();
+			_content = new 弹头触发器EmptyContent();
 		}
 
-		public BulletTrigger(BulletTriggerSerializable serializable, Database database)
+		public 弹头触发器(BulletTriggerSerializable serializable, Database database)
 		{
-			Condition = serializable.Condition;
-			EffectType = serializable.EffectType;
+			触发器类型 = serializable.Condition;
+			行为类型 = serializable.EffectType;
 			_content = CreateContent(serializable.EffectType);
 			_content.Load(serializable, database);
 
@@ -74,8 +74,8 @@ namespace EditorDatabase.DataModel
 			serializable.PowerMultiplier = 0f;
 			serializable.MaxNestingLevel = 0;
 			_content.Save(ref serializable);
-			serializable.Condition = Condition;
-			serializable.EffectType = EffectType;
+			serializable.Condition = 触发器类型;
+			serializable.EffectType = 行为类型;
 			OnDataSerialized(ref serializable);
 			return serializable;
 		}
@@ -89,8 +89,8 @@ namespace EditorDatabase.DataModel
 			{
 				var type = GetType();
 
-				yield return new Property(this, type.GetField("Condition"), DataChangedEvent);
-				yield return new Property(this, type.GetField("EffectType"), OnTypeChanged);
+				yield return new Property(this, type.GetField("触发器类型"), DataChangedEvent);
+				yield return new Property(this, type.GetField("行为类型"), OnTypeChanged);
 
 				foreach (var item in _content.GetType().GetFields().Where(f => f.IsPublic && !f.IsStatic))
 					yield return new Property(_content, item, DataChangedEvent);
@@ -99,106 +99,106 @@ namespace EditorDatabase.DataModel
 
 		private void OnTypeChanged()
 		{
-			_content = CreateContent(EffectType);
+			_content = CreateContent(行为类型);
 			DataChangedEvent?.Invoke();
 			LayoutChangedEvent?.Invoke();
 		}
 
-		private IBulletTriggerContent _content;
-		public BulletTriggerCondition Condition;
-		public BulletEffectType EffectType;
+		private I弹头触发器Content _content;
+		public BulletTriggerCondition 触发器类型;
+		public BulletEffectType 行为类型;
 
-		public static BulletTrigger DefaultValue { get; private set; }
+		public static 弹头触发器 DefaultValue { get; private set; }
 	}
 
-	public class BulletTriggerEmptyContent : IBulletTriggerContent
+	public class 弹头触发器EmptyContent : I弹头触发器Content
 	{
 		public void Load(BulletTriggerSerializable serializable, Database database) {}
 		public void Save(ref BulletTriggerSerializable serializable) {}
 	}
 
-	public partial class BulletTrigger_PlaySfx : IBulletTriggerContent
+	public partial class 弹头触发器_播放视觉效果 : I弹头触发器Content
 	{
 		partial void OnDataDeserialized(BulletTriggerSerializable serializable, Database database);
 		partial void OnDataSerialized(ref BulletTriggerSerializable serializable);
 
 		public void Load(BulletTriggerSerializable serializable, Database database)
 		{
-			VisualEffect = database.GetVisualEffectId(serializable.VisualEffect);
-			AudioClip = serializable.AudioClip;
-			Color = Helpers.ColorFromString(serializable.Color);
-			ColorMode = serializable.ColorMode;
-			Size = new NumericValue<float>(serializable.Size, 0f, 100f);
-			Lifetime = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
+			视觉效果 = database.GetVisualEffectId(serializable.VisualEffect);
+			音效 = serializable.AudioClip;
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			颜色模式 = serializable.ColorMode;
+			大小 = new NumericValue<float>(serializable.Size, 0f, 100f);
+			持续时间 = new NumericValue<float>(serializable.Lifetime, 0f, 1000f);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref BulletTriggerSerializable serializable)
 		{
-			serializable.VisualEffect = VisualEffect.Value;
-			serializable.AudioClip = AudioClip;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.ColorMode = ColorMode;
-			serializable.Size = Size.Value;
-			serializable.Lifetime = Lifetime.Value;
+			serializable.VisualEffect = 视觉效果.Value;
+			serializable.AudioClip = 音效;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.ColorMode = 颜色模式;
+			serializable.Size = 大小.Value;
+			serializable.Lifetime = 持续时间.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<VisualEffect> VisualEffect = ItemId<VisualEffect>.Empty;
-		public string AudioClip;
-		public System.Drawing.Color Color;
-		public ColorMode ColorMode;
-		public NumericValue<float> Size = new NumericValue<float>(0, 0f, 100f);
-		public NumericValue<float> Lifetime = new NumericValue<float>(0, 0f, 1000f);
+		public ItemId<VisualEffect> 视觉效果 = ItemId<VisualEffect>.Empty;
+		public string 音效;
+		public System.Drawing.Color 颜色;
+		public ColorMode 颜色模式;
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0f, 100f);
+		public NumericValue<float> 持续时间 = new NumericValue<float>(0, 0f, 1000f);
 	}
 
-	public partial class BulletTrigger_SpawnBullet : IBulletTriggerContent
+	public partial class 弹头触发器_生成弹头 : I弹头触发器Content
 	{
 		partial void OnDataDeserialized(BulletTriggerSerializable serializable, Database database);
 		partial void OnDataSerialized(ref BulletTriggerSerializable serializable);
 
 		public void Load(BulletTriggerSerializable serializable, Database database)
 		{
-			AudioClip = serializable.AudioClip;
-			Ammunition = database.GetAmmunitionId(serializable.Ammunition);
-			Color = Helpers.ColorFromString(serializable.Color);
-			ColorMode = serializable.ColorMode;
-			Quantity = new NumericValue<int>(serializable.Quantity, 0, 1000);
-			Size = new NumericValue<float>(serializable.Size, 0f, 100f);
-			Cooldown = new NumericValue<float>(serializable.Cooldown, 0f, 1000f);
-			RandomFactor = new NumericValue<float>(serializable.RandomFactor, 0f, 1f);
-			PowerMultiplier = new NumericValue<float>(serializable.PowerMultiplier, 0f, 1000f);
-			MaxNestingLevel = new NumericValue<int>(serializable.MaxNestingLevel, 0, 100);
+			音效 = serializable.AudioClip;
+			生成弹头 = database.GetAmmunitionId(serializable.Ammunition);
+			颜色 = Helpers.ColorFromString(serializable.Color);
+			颜色模式 = serializable.ColorMode;
+			生成数量 = new NumericValue<int>(serializable.Quantity, 0, 1000);
+			大小 = new NumericValue<float>(serializable.Size, 0f, 100f);
+			冷却 = new NumericValue<float>(serializable.Cooldown, 0f, 1000f);
+			随机系数 = new NumericValue<float>(serializable.RandomFactor, 0f, 1f);
+			强度乘数 = new NumericValue<float>(serializable.PowerMultiplier, 0f, 1000f);
+			最大嵌套层数 = new NumericValue<int>(serializable.MaxNestingLevel, 0, 100);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref BulletTriggerSerializable serializable)
 		{
-			serializable.AudioClip = AudioClip;
-			serializable.Ammunition = Ammunition.Value;
-			serializable.Color = Helpers.ColorToString(Color);
-			serializable.ColorMode = ColorMode;
-			serializable.Quantity = Quantity.Value;
-			serializable.Size = Size.Value;
-			serializable.Cooldown = Cooldown.Value;
-			serializable.RandomFactor = RandomFactor.Value;
-			serializable.PowerMultiplier = PowerMultiplier.Value;
-			serializable.MaxNestingLevel = MaxNestingLevel.Value;
+			serializable.AudioClip = 音效;
+			serializable.Ammunition = 生成弹头.Value;
+			serializable.Color = Helpers.ColorToString(颜色);
+			serializable.ColorMode = 颜色模式;
+			serializable.Quantity = 生成数量.Value;
+			serializable.Size = 大小.Value;
+			serializable.Cooldown = 冷却.Value;
+			serializable.RandomFactor = 随机系数.Value;
+			serializable.PowerMultiplier = 强度乘数.Value;
+			serializable.MaxNestingLevel = 最大嵌套层数.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public string AudioClip;
-		public ItemId<Ammunition> Ammunition = ItemId<Ammunition>.Empty;
-		public System.Drawing.Color Color;
-		public ColorMode ColorMode;
-		public NumericValue<int> Quantity = new NumericValue<int>(0, 0, 1000);
-		public NumericValue<float> Size = new NumericValue<float>(0, 0f, 100f);
-		public NumericValue<float> Cooldown = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<float> RandomFactor = new NumericValue<float>(0, 0f, 1f);
-		public NumericValue<float> PowerMultiplier = new NumericValue<float>(0, 0f, 1000f);
-		public NumericValue<int> MaxNestingLevel = new NumericValue<int>(0, 0, 100);
+		public string 音效;
+		public ItemId<Ammunition> 生成弹头 = ItemId<Ammunition>.Empty;
+		public System.Drawing.Color 颜色;
+		public ColorMode 颜色模式;
+		public NumericValue<int> 生成数量 = new NumericValue<int>(0, 0, 1000);
+		public NumericValue<float> 大小 = new NumericValue<float>(0, 0f, 100f);
+		public NumericValue<float> 冷却 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<float> 随机系数 = new NumericValue<float>(0, 0f, 1f);
+		public NumericValue<float> 强度乘数 = new NumericValue<float>(0, 0f, 1000f);
+		public NumericValue<int> 最大嵌套层数 = new NumericValue<int>(0, 0, 100);
 	}
 
 }

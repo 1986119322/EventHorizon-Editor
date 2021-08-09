@@ -10,12 +10,12 @@ namespace EditorDatabase.Enums
 {
 	public enum BulletShape
 	{
-		Projectile,
-		Rocket,
-		LaserBeam,
-		LightningBolt,
-		EnergyBeam,
-		Spark,
-		Mine,
+		炮弹,
+		导弹,
+		直线激光束,
+		闪电束,
+		能量束,
+		火花,
+		雷,
 	}
 }

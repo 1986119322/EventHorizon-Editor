@@ -22,37 +22,37 @@ namespace EditorDatabase.DataModel
 		public ShipBuild(ShipBuildSerializable serializable, Database database)
 		{
 			Id = new ItemId<ShipBuild>(serializable.Id, serializable.FileName);
-			Ship = database.GetShipId(serializable.ShipId);
-			if (Ship.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".Ship cannot be null");
-			NotAvailableInGame = serializable.NotAvailableInGame;
-			DifficultyClass = serializable.DifficultyClass;
-			BuildFaction = database.GetFactionId(serializable.BuildFaction);
-			Components = serializable.Components?.Select(item => new InstalledComponent(item, database)).ToArray();
+			飞船 = database.GetShipId(serializable.ShipId);
+			if (飞船.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".飞船 不能为空");
+			游戏中不启用 = serializable.NotAvailableInGame;
+			难度等级 = serializable.DifficultyClass;
+			会建造的势力 = database.GetFactionId(serializable.BuildFaction);
+			组件列表 = serializable.Components?.Select(item => new InstalledComponent(item, database)).ToArray();
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ShipBuildSerializable serializable)
 		{
-			serializable.ShipId = Ship.Value;
-			serializable.NotAvailableInGame = NotAvailableInGame;
-			serializable.DifficultyClass = DifficultyClass;
-			serializable.BuildFaction = BuildFaction.Value;
-			if (Components == null || Components.Length == 0)
+			serializable.ShipId = 飞船.Value;
+			serializable.NotAvailableInGame = 游戏中不启用;
+			serializable.DifficultyClass = 难度等级;
+			serializable.BuildFaction = 会建造的势力.Value;
+			if (组件列表 == null || 组件列表.Length == 0)
 			    serializable.Components = null;
 			else
-			    serializable.Components = Components.Select(item => item.Serialize()).ToArray();
+			    serializable.Components = 组件列表.Select(item => item.Serialize()).ToArray();
 			OnDataSerialized(ref serializable);
 		}
 
 		public readonly ItemId<ShipBuild> Id;
 
-		public ItemId<Ship> Ship = ItemId<Ship>.Empty;
-		public bool NotAvailableInGame;
-		public DifficultyClass DifficultyClass;
-		public ItemId<Faction> BuildFaction = ItemId<Faction>.Empty;
-		public InstalledComponent[] Components;
+		public ItemId<Ship> 飞船 = ItemId<Ship>.Empty;
+		public bool 游戏中不启用;
+		public DifficultyClass 难度等级;
+		public ItemId<Faction> 会建造的势力 = ItemId<Faction>.Empty;
+		public InstalledComponent[] 组件列表;
 
 		public static ShipBuild DefaultValue { get; private set; }
 	}
