@@ -367,20 +367,20 @@ namespace EditorDatabase.DataModel
 
 		public void Load(LootContentSerializable serializable, Database database)
 		{
-			带配置飞船 = database.GetShipBuildId(serializable.ItemId);
-			if (带配置飞船.IsNull)
-			    throw new DatabaseException(this.GetType().Name + ".带配置飞船 不能为空");
+			飞船配置 = database.GetShipBuildId(serializable.ItemId);
+			if (飞船配置.IsNull)
+			    throw new DatabaseException(this.GetType().Name + ".飞船配置 不能为空");
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref LootContentSerializable serializable)
 		{
-			serializable.ItemId = 带配置飞船.Value;
+			serializable.ItemId = 飞船配置.Value;
 			OnDataSerialized(ref serializable);
 		}
 
-		public ItemId<ShipBuild> 带配置飞船 = ItemId<ShipBuild>.Empty;
+		public ItemId<ShipBuild> 飞船配置 = ItemId<ShipBuild>.Empty;
 	}
 
 	public partial class 物品列表_空船 : I物品列表Content
