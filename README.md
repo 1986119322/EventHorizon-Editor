@@ -1,22 +1,34 @@
 # EventHorizon Editor
 
-## How to use:
+这个中文翻译版本DBE的是模组教程《从零开始的视界线模组制作》中的一部分。在尽可能不更改DBE结构的情况下对DBE进行中文化。
 
-1. Download and extract Release.zip.
-2. Run GameDatabase.exe and open the database.
-3. Click Create Mod and enter the name.
-4. Copy the Mod file to the folder "\<Game Installation Folder\>/Mods" for PC or "Android/data/com.ZipasGames.EventHorizon/files/Mods" for Android.
-5. Open the game settings and select your Mod.
+```
+This Chinese-translated version of DBE is part of modding guide 《从零开始的视界线模组制作》.
+It's intended to Chineseize the DBE without changing the structure of the DBE as much as possible.
+Although I think learning English well is the best way to learn modding.
+```
 
-Since 0.15.3 you can also put the whole database into the Mods folder. This allows you to edit your ship builds in game editor.
+## 使用方法:
 
-## Images
+1. 下载并解压Release.zip。
+2. 运行GameDatabase.exe，然后在左上角依次选择"文件>加载..."来加载你的数据库。你也可以将程序解压到数据库目录下，DBE启动时将自动读取所在目录的数据库。
+3. 左上角依次选择"文件>打包为模组..."，然后在弹出的对话框中输入你的模组名称。
+4. 复制生成的Mod文件到"\<游戏安装目录\>/Mods"(PC)，"Android/data/com.ZipasGames.EventHorizon/files/Mods"(Android)。
+5. 打开游戏设置并选择你的模组。
 
-Images can be placed anywere in the /Database/ folder. They must be a square size - 128x128, 256x256, 512x512, 1024x1024 etc. Only PNG and JPEG formats are supported.
+自0.15.3起，你也可以将整个数据库文件夹放入`Mods`文件夹。你可以通过这种方式来在游戏内编辑器中修改你的飞船/僚机配置。
 
-## Localization
+## 贴图
 
-Localization files should be named according to the language - \<language\>.xml (e.g. English.xml, Russian.xml)
+贴图可以放在数据库目录内的任意位置。图片的形状必须是方形的，但分辨率大小不限，如128x128, 256x256, 512x512, 1024x1024 等都可以。目前支持PNG、JPG以及JPEG格式的图片。
+
+## 音频
+
+音频可以放在数据库目录内的任意位置。目前支持WAV格式的音频。
+
+## 本地化翻译
+
+官方给出的本地化xml文件格式：
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -26,74 +38,106 @@ Localization files should be named according to the language - \<language\>.xml 
 </resources>
 ```
 
-## Quests
+本地化文件要以其对应的语言名作为其文件名。目前EH支持的语言如下：
 
-You can email me any interesting quests you made. If I like it, I'll add it to the game.
+|语言名|本地化文件名|
+|-----|-----------|
+|英语(English)|English.xml|
+|俄语(Русский)|Russian.xml|
+|德语(Deutsch)|German.xml|
+|西班牙语(Español)|Spanish.xml|
+|波兰语(Polski)|Polish.xml|
+|法语(Française)|French.xml|
+|葡萄牙语(Português（PT）)|Portuguese.xml|
+|巴西葡萄牙语(Português（BR）)|Portuguese_BR.xml|
+|韩语(한국어)|Korean.xml|
+|土耳其语(Türk)|Turkish.xml|
+|意大利语(Italiano)|Italian.xml|
+|汉语(中文)|Chinese.xml|
+|亚美尼亚语(Հայերէն)|Armenian.xml|
+|匈牙利语(Magyar)|Hungarian.xml|
+|捷克语(Čeština)|Czech.xml|
 
-#### Quest Types
-* Common - can be started multiple times
-* Singleton - like common, but only one can be active at a time
-* Storyline - can be completed only once
-* Temporary - like common, but doesn't save it's state
+## 任务系统
 
-#### Start Conditions
-* Manual - can only be started manually
-* Beacon - starts at beacons (more `Weight` = more chances to start)
-* LocalEncounter - starts when you are attacked (or attack) by local occupants (more `Weight` = more chances to start)
-* FactionMission - starts when you take a mission (more `Weight` = more chances to start)
-* GameStart - starts when you start (or load) the game
-* NewStarExplored - starts when you explore a new star and defeat its defenders (`Weight*100%` = chances to start)
-* ArrivedAtStar - starts when you arrive at any star stystem (`Weight*100%` = chances to start)
+如果你希望你做的有趣的任务加入到原版游戏中，你可以将它们发到作者的邮箱。若他也喜欢你做的任务，他会考虑将其加到游戏中。
 
-#### Quest node types
-* ComingSoon - does nothing, shows 'Coming Soon' message in quest log
-* ShowDialog - shows the dialog window
-* Switch - waits until any transition in `Transitions` or `DefaultTransition` is available, then use it.
-* Random - selects random transition it `Transitions` or `DefaultTransition` in none is available.
-* AttackFleet - attacks the fleet then jumps to `VictoryTransition` or `DefeatTransition`
-* AttackOccupants - same as AttackFleet but attacks current star defenders
-* DestroyOccupants - removes current star defenders
-* SuppressOccupants - makes current star defenders non agressive
-* Retreat - moves to the nearest safe star system
-* ReceiveItem - gives `Loot` to player
-* RemoveItem - removes `Loot` from player
-* Trade - opens trade window. `Loot` = items in the store.
-* CompleteQuest - completes this quest
-* FailQuest - fails this quest
-* CancelQuest - cancels this quest (like it has never started)
-* StartQuest - starts the new `Quest` (it should be `Manual`)
-* SetCharacterRelations - sets the relations between `Character` and player to `Value`
-* SetFactionRelations - sets the relations between current faction and player to `Value`
-* ChangeCharacterRelations - modifies the relations between `Character` and player by `Value`
-* ChangeFactionRelations - modifies the relations between current faction and player by `Value`
+#### 任务类型
+* 常规 - 可以被多次触发。
+* 单例 - 类似于常规，但不能同时激活多个。
+* 故事线 - 只能同时激活一个、被完成一次，无法被玩家手动取消。
+* 临时 - 类似于常规，但不能保存它的状态。
+* 紧急 - 类似于常规，但不能被手动取消。
 
-#### Requirement types
-* Any - any of `Requirements` should be true
-* All - all `Requirements` should be true
-* None - all `Requirements` should be false
-* PlayerPosition - player should be between `MinDistance` and `MaxDistance` l.y. from home
-* RandomStarSystem - player should be at random star system between `MinDistance` and `MaxDistance` l.y. from home
-* AggressiveOccupants - enemies in current star system want attack player
-* QuestCompleted - quest `QuestId` has been completed
-* QuestActive - quest `QuestId` is in progress
-* CharacterRelations - relations between player and `Character` should be between `MinValue` and `MaxValue`
-* FactionRelations - relations between player and current faction should be between `MinValue` and `MaxValue`
-* Faction - player should be on the territory of `Faction`
-* HaveQuestItem - player has an `Amount` of `Item`s
-* HaveItem, HaveItemById - player has every item in `Loot` (or `LootId`)
-* ComeBack - player should go to the star system where this quest has been taken
+#### 触发方式
+* 手动 - 只能通过任务节点`开始任务`开始。
+* 信标 - 信标被打开时开始。(`比重`越大 = 触发的几率越大)
+* 遭遇 - 当玩家受到星系敌人的攻击(或攻击星系敌人)时开始。(`比重`越大 = 触发的几率越大)
+* 势力任务 - 在势力要塞接受任务时开始。(`比重`越大 = 触发的几率越大)
+* 游戏开始 - 开始新游戏(或加载)时开始。
+* 探索新星系 - 当玩家抵达任意未探索星系并击败\镇压该星系敌人时开始。(`比重*100%` = 触发的几率)
+* 抵达星系 - 当玩家抵达任意无攻击性敌人的星系时开始。(`比重*100%` = 触发的几率)
 
-#### Loot types
-* SomeMoney - an amount of money according to current distance from homestar multiplied by `ValueRatio`.
-* Fuel - random amount of fuel between `MinAmount` and `MaxAmount`
-* Money - random amount of money between `MinAmount` and `MaxAmount`
-* Stars - random amount of stars between `MinAmount` and `MaxAmount` (mobile version only)
-* StarMap - a star map which explores adjacent star systems
-* RandomComponents - random amount between `MinAmount` and `MaxAmount` of random compmonents of level according to the distance from homestar multiplied by `ValueRatio` and filtered by `Factions`
-* RandomItems - random amount of `Items` between `MinAmount` and `MaxAmount` (more `Weight` = more chances to pick)
-* AllItems - every item in `Items`
-* ItemsWithChance - random amount of `Items` (chance to pick = `Weight`*100%)
-* QuestItem - random amount of `Item`s between `MinAmount` and `MaxAmount`
-* Ship - selected ship `Build`
-* EmptyShip - selected `Ship` without weapons and modules
-* Component - random amount of selected `Component`s between `MinAmount` and `MaxAmount`
+#### 任务节点类型
+* 即将到来 - 什么都不做，在任务日志中显示“这个故事还未完成，敬请期待。”。
+* 显示对话 - 显示对话框窗口。
+* 打开船坞 - 打开一个所属为`势力`等级为当前距离或`船坞等级`(`船坞等级`＞0)的船坞。
+* 条件 - 等待`跳转节点`中的任意`跳转节点`可用或当`默认跳转节点`可用时，然后进行跳转。
+* 随机 - 等待`跳转节点`中的随机一个`跳转节点`进行跳转。如果设置了`默认跳转节点`，在没有可用的`跳转节点`的情况下使用`默认跳转节点`。
+* 攻击舰队 - 攻击指定舰队，然后跳转到`胜利跳转`或`失败跳转`。
+* 攻击星系敌人 - 与攻击舰队相同，但攻击当前的星系敌人。
+* 摧毁星系敌人 - 移除当前星系的星系敌人。
+* 压制星系敌人 - 使当前星系的星系敌人不具有攻击性。
+* 撤退 - 移动玩家到最近的安全星系。
+* 接收物品 - 给予玩家指定的`物品列表`中的物品。
+* 移除物品 - 移除玩家的指定`物品列表`中的物品。
+* 交易 - 打开交易窗口。`物品列表` = 商店里的东西。
+* 使任务完成 - 结束当前任务，并将当前任务标记为已完成。
+* 使任务失败 - 失败当前任务，并结束任务。
+* 取消任务 - 取消当前任务。(就像从未触发过一样)
+* 开始任务 - 开始一个`任务`。(该任务的类型必须是`手动`)
+* 设置角色关系 - 将`角色`与玩家的好感度设置为`好感度`。
+* 设置势力关系 - 将任务起始点的星区的玩家声望设置为`好感度`。
+* 改变角色关系 - 将`好感度`加在`角色`与玩家的好感度上。
+* 改变势力关系 - 将`好感度`加在将任务起始点的星区的玩家声望上。
+
+#### 需求条件类型
+* 任意 - `条件`中应有任意一项为真。
+* 所有 - `条件`中所有项都为真。
+* 无一 - `条件`中所有项都为假。
+* 玩家位置 - 玩家所在位置应在`最小距离`到`最大距离`的离家距离之间。
+* 移动到任意星系 - 玩家应移动到离当前星系有在`最小距离`到`最大距离`范围内的随机的距离的一个星系。
+* 攻击性星系敌人 - 当前星系的敌人想要攻击玩家。
+* 任务已完成 - 指定`任务`应已被标记为已完成。
+* 任务激活 - 指定`任务`当前应正在进行中。
+* 角色关系 - `角色`与玩家的好感度应在`最小好感度`和`最大好感度`之间。
+* 星区关系 - 任务起始点的星区的玩家声望应在`最小好感度`和`最大好感度`之间。
+* 星区已占领 - 任务所在星区的空间站应已被占领。
+* 势力 - 玩家应在`势力`的星区范围内。
+* 拥有任务物品 - 玩家应拥有至少`拥有数量`个`任务物品`。
+* 拥有物品, 拥有指定物品 - 玩家应拥有`物品列表`(或指定的`物品列表`)中的所有东西。
+* 返回任务起始点 - 玩家应返回任务的起始星系。
+* 从任务触发开始进行计时 - 以任务被触发时的系统时间开始，经过设定的时间后为真。
+* 从任务上次完成时开始计时 - 以任务上一次被完成时的系统时间开始，经过设定的时间后为真。
+
+#### 任务起始地点类型
+* 当前星系 - 玩家所在星系
+* 当前星区要塞 - 玩家所在星系的所在星区的空间站。(若当前星系无所属星区，则起始地点为母星)
+* 随机星区要塞 - 以玩家为中心，距离在`最小距离`和`最大距离`之间、声望在`最小声望`和`最大声望`之间，并按`筛选势力`筛选的所属的随机空间站。
+* 起始星系 - 母星。
+* 随机星系 - 以玩家为中心，距离在`最小距离`和`最大距离`之间的随机星系。
+
+#### 物品列表类型
+* 一些钱 - 数量取决于当前离家距离乘以`比率`的信用点。
+* 燃料 - 在`最小数量`和`最大数量`之间随机的数量的燃料。
+* 钱 - 在`最小数量`和`最大数量`之间随机的数量的信用点。
+* 星币 - 在`最小数量`和`最大数量`之间随机的数量的星币。(仅限移动版，PC版不支持)
+* 星图 - 点亮以玩家为中心，半径为3的范围内的星系。
+* 随机组件 - 品质取决于离家距离乘以`比率`的，并按`筛选势力`筛选的所属的，`最小数量`和`最大数量`之间的随机数量的随机可掉落组件。
+* 随机物品 - 在`物品列表`中抽取在`最小数量`和`最大数量`之间的随机的数量的`物品列表`。 (`比重` = 被抽取到的概率)
+* 所有物品 - `物品列表`中所有的`物品列表`。
+* 几率物品 - `物品列表`中所有的`物品列表`，使用`比重`表示该`物品列表`的出现几率。(出现几率 = `比重`*100%)
+* 任务物品 - 在`最小数量`和`最大数量`之间的随机数量的`任务物品`。
+* 带配置飞船 - 带有指定`飞船配置`的对应飞船。
+* 空船 - 指定的空`飞船`。
+* 组件 - 在`最小数量`和`最大数量`之间的随机的数量的白色品质的指定`组件`。
