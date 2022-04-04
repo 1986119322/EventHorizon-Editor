@@ -13,6 +13,5 @@ namespace EditorDatabase.Enums
 		默认 = 0,
 		一改 = 1,
 		二改 = 2,
-		三改 = 3,
 	}
 }

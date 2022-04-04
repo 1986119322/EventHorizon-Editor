@@ -21,7 +21,7 @@ namespace EditorDatabase.Serializable
 		public int MinValue;
 		public int MaxValue;
 		public int Character;
-		public int 势力;
+		public int Faction;
 		public LootContentSerializable Loot;
 		public RequirementSerializable[] Requirements;
 	}

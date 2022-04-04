@@ -101,7 +101,7 @@ namespace EditorDatabase.DataModel
 			serializable.MinValue = 0;
 			serializable.MaxValue = 0;
 			serializable.Character = 0;
-			serializable.势力 = 0;
+			serializable.Faction = 0;
 			serializable.Loot = new LootContentSerializable();
 			serializable.Requirements = null;
 			_content.Save(ref serializable);
@@ -365,14 +365,14 @@ namespace EditorDatabase.DataModel
 
 		public void Load(RequirementSerializable serializable, Database database)
 		{
-			势力 = database.GetFactionId(serializable.势力);
+			势力 = database.GetFactionId(serializable.Faction);
 
 			OnDataDeserialized(serializable, database);
 		}
 
 		public void Save(ref RequirementSerializable serializable)
 		{
-			serializable.势力 = 势力.Value;
+			serializable.Faction = 势力.Value;
 			OnDataSerialized(ref serializable);
 		}
 
