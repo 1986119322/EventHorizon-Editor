@@ -211,6 +211,17 @@ namespace GameDatabase
 
         private void createModMenuItem_Click(object sender, EventArgs e)
         {
+            CreateMod();
+        }
+
+        private void createCEModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Warning: Creating a community edition mod means compiling a mod without encryption.\nAlso some Community Edition builds may not support loading this mod.", "Warning", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CreateMod(false);
+        }
+
+        private void CreateMod(bool encrypt = true)
+        {
             if (string.IsNullOrWhiteSpace(_lastDatabasePath))
                 return;
 
@@ -233,7 +244,7 @@ namespace GameDatabase
 
                 _database.Save(new DatabaseStorage(_lastDatabasePath));
                 var builder = ModBuilder.Create(_lastDatabasePath);
-                builder.Build((FileStream)saveFileDialog.OpenFile());
+                builder.Build((FileStream)saveFileDialog.OpenFile(), encrypt);
             }
             catch (Exception exception)
             {
@@ -252,7 +263,7 @@ namespace GameDatabase
 
         private void changeMaxListLengthToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputForm input = new InputForm("Intput new length.", Settings.Default.MaxListLen.ToString());
+            InputForm input = new InputForm("Input new length.", Settings.Default.MaxListLen.ToString());
             try
             {
                 if (input.ShowDialog() == DialogResult.OK)
