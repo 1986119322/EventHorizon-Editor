@@ -55,7 +55,7 @@ namespace GameDatabase
             }
         }
 
-        public void Build(FileStream stream)
+        public void Build(FileStream stream, bool encrypt)
         {
             try
             {
@@ -69,11 +69,14 @@ namespace GameDatabase
                 for (int i = 0; i < size; ++i)
                 {
                     checksumm += data[i];
-                    data[i] = (byte)(data[i] ^ (byte)random(ref w, ref z));
+                    if (encrypt)
+                    {
+                        data[i] = (byte)(data[i] ^ (byte)random(ref w, ref z));
+                    }
                 }
 
                 stream.Write(data, 0, data.Length);
-                stream.WriteByte((byte)(checksumm ^ (byte)random(ref w, ref z)));
+                stream.WriteByte((byte)(encrypt ? checksumm ^ (byte)random(ref w, ref z) : checksumm));
             }
             finally
             {
