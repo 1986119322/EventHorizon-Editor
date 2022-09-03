@@ -211,6 +211,17 @@ namespace GameDatabase
 
         private void createModMenuItem_Click(object sender, EventArgs e)
         {
+            CreateMod();
+        }
+
+        private void createCEModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("警告：创建社区版 mod 意味着编译不加密的 mod。\n此外，某些社区版构建可能不支持加载此 mod。", "警告", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                CreateMod(false);
+        }
+
+        private void CreateMod(bool encrypt = true)
+        {
             if (string.IsNullOrWhiteSpace(_lastDatabasePath))
                 return;
 
@@ -233,7 +244,7 @@ namespace GameDatabase
 
                 _database.Save(new DatabaseStorage(_lastDatabasePath));
                 var builder = ModBuilder.Create(_lastDatabasePath);
-                builder.Build((FileStream)saveFileDialog.OpenFile());
+                builder.Build((FileStream)saveFileDialog.OpenFile(), encrypt);
             }
             catch (Exception exception)
             {
